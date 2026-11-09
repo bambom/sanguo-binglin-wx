@@ -14,3 +14,7 @@ publish/
 # LayaAir IDE script upgrade archive (auto-migrated old versions)
 **/.laya/_pub_old/
 .rpt2_cache/
+
+# tsc bare -p runs emit beside sources; real F8 output goes to bin/js via tasks.json --outDir
+layaProject/src/**/*.js
+layaProject/src/**/*.js.map

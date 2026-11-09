@@ -145,6 +145,19 @@ declare namespace sg {
             static VIEW_GOD_SKILL_TIPS: any;
             static VIEW_ESTATE_CHOOSE_HERO: any;
             static VIEW_ESTATE_HERO: any;
+            // ---- 批次 B 增补 2026-11-10（QueueManager/ModelAlert 队列与红点面）----
+            static VIEW_NOTICE_PICTURE: any;
+            static VIEW_WEEK_CARD: any;
+            static VIEW_SALE_PAY_ALERT: any;
+            static VIEW_PAY_RANK_TIPS: any;
+            static VIEW_MEMBER_CARD: any;
+            static VIEW_LOOP_CARD_REWARD_PANEL: any;
+            static VIEW_EMPEROR_TIPS: any;
+            static VIEW_CREDITRESULT: any;
+            static VIEW_COUNTRY_TRIBUTARY_TIPS: any;
+            static VIEW_COUNTRY_PVP_TIPS: any;
+            static VIEW_COUNTRY_NOTICE_ALERT: any;
+            static VIEW_COUNTRY_KING_TIPS: any;
         }
         /** sg.cfg.ConfigAssets（包装变量 Ft）——预载资源表（惰性静态） */
         class ConfigAssets {
@@ -236,6 +249,10 @@ declare namespace sg {
         /** sg.model.ModelPlayer（包装变量 Br，池化名 t(16506)） */
         class ModelPlayer {
             static recommendServer: any;
+            // ---- 批次 B 增补 2026-11-10（ConfigServer 服务器分区列表）----
+            static instance: ModelPlayer;
+            getServerZones(): any;
+            getZoneList(): any;
         }
         /** sg.model.ModelClub（包装变量 $o，池化名 t(238)） */
         class ModelClub {
@@ -249,6 +266,8 @@ declare namespace sg {
         /** sg.model.ModelEstate（包装变量 hr，池化名 t(2664)） */
         class ModelEstate {
             static myEstates: any;
+            // ---- 批次 B 增补 2026-11-10（ConfigServer 交易开关）----
+            static isTradeOpen(): any;
         }
         /** sg.model.ModelOnlineReward（包装变量 Us，池化名 t(343)） */
         class ModelOnlineReward {
@@ -265,11 +284,23 @@ declare namespace sg {
         /** sg.model.ModelItem（包装变量 yr，池化名 t(6604)） */
         class ModelItem {
             static checkItemGotoBag(id: any): boolean;
+            // ---- 批次 B 增补 2026-11-10（AssetsManager 货币小图标）----
+            static getItemIcon(id?: any): any;
         }
         /** sg.model.ModelHero（包装变量 _r，池化名 t(3066)） */
         class ModelHero {
             static getTitleInfo(id: any): any;
             static getTitleName(id: any): any;
+            // ---- 批次 B 增补 2026-11-10（ConfigServer 清库 / EffectManager 立绘 / 公告名）----
+            static HERO000: any;
+            static heroModels: any;
+            static getHeroName(id?: any): any;
+            static getHeroRes(id?: any): any;
+            static getHeroIcon(id?: any): any;
+            /** ModelAlert 红点面 */
+            static isShowNewHeroFeature(): any;
+            static isShowHeroCounter(): any;
+            static sBestHid: any;
         }
         /** sg.model.ModelHeroPure（包装变量 gr，池化名 t(17278)） */
         class ModelHeroPure {
@@ -278,6 +309,11 @@ declare namespace sg {
         /** sg.model.ModelSkin（包装变量 Vr，池化名 t(12878)） */
         class ModelSkin {
             static getHeroId(id: any): any;
+            // ---- 批次 B 增补 2026-11-10（ConfigServer 清库 / ViewSkinTips 皮肤名与星级）----
+            static skinModels: any;
+            static getName(id?: any): any;
+            static getStarById(id?: any): any;
+            static getInfoHtml(id?: any, n?: any): any;
         }
         /** sg.model.ModelBeast（包装变量 Go，池化名 t(6453)） */
         class ModelBeast {
@@ -286,6 +322,8 @@ declare namespace sg {
         /** sg.model.ModelRune（包装变量 Pr，池化名 t(14945)） */
         class ModelRune {
             static getNum(id: any): any;
+            // ---- 批次 B 增补 2026-11-10（ConfigServer 清库）----
+            static runeModels: any;
         }
     }
 
@@ -303,6 +341,8 @@ declare namespace sg {
             class ModelGuide {
                 static forceGuide(): any;
                 static battleOver(): void;
+                // ---- 批次 B 增补 2026-11-10（NetSocket 引导数据注入）----
+                static getGuideData(t?: any): any;
             }
         }
     }
@@ -330,6 +370,8 @@ declare namespace sg {
             class MapModel {
                 static instance: MapModel;
                 updateTroopItem(): void;
+                // ---- 批次 B 增补 2026-11-10（ViewNotice 城市实体表）----
+                citys: any;
             }
         }
     }
@@ -338,6 +380,9 @@ declare namespace sg {
         /** sg.scene.view.TestButton（包装变量 C7） */
         class TestButton {
             static resetHelpData(): void;
+            // ---- 批次 B 增补 2026-11-10（NetSocket 推送测试钩子）----
+            static log(...args: any[]): void;
+            static preUpdate(...args: any[]): void;
         }
         /** sg.scene.view.InputManager（包装变量 xn）——注意原文静态属性拼写 enaled */
         class InputManager {
@@ -381,6 +426,8 @@ declare namespace sg {
         /** sg.view.com.MouseTips（包装变量 IK） */
         class MouseTips {
             static hideMouseTips(): void;
+            // ---- 批次 B 增补 2026-11-10（EffectManager/ViewSkinTips 鼠标提示链）----
+            static showMouseTips(...args: any[]): any;
         }
     }
 
@@ -468,6 +515,8 @@ declare namespace sg {
         class CrossServiceFacade {
             static instance: CrossServiceFacade;
             socket: any;
+            // ---- 批次 B 增补 2026-11-10（NetSocket 跨服校时）----
+            static checkServerTime(t?: any, i?: any): void;
         }
         namespace view {
             /** sg.crossService.view.CrossServiceMap（包装变量 kc） */
@@ -490,7 +539,11 @@ declare namespace sg {
 
     namespace map.view {
         /** sg.map.view.MapViewMain（包装变量 Ku） */
-        class MapViewMain { }
+        class MapViewMain {
+            // ---- 批次 B 增补 2026-11-10（ViewNotice 战斗内跳转）----
+            static instance: MapViewMain;
+            sendNetToInFight(...args: any[]): any;
+        }
     }
 
     namespace fight {
@@ -499,6 +552,9 @@ declare namespace sg {
             static instance: FightMain;
             scene: any;
             client: any;
+            // ---- 批次 B 增补 2026-11-10（ViewNotice 城市 / EffectManager 战斗态）----
+            static getCurrCityId(): any;
+            static inFight: any;
         }
         namespace logic.utils {
             /** sg.fight.logic.utils.PassiveStrUtils（包装变量 Ui，池化名 t(16572)） */
@@ -552,6 +608,11 @@ declare namespace sg {
         /** sg.boundFor.GotoManager（包装变量 Dt） */
         class GotoManager {
             static boundForPanel(name: any): void;
+            // ---- 批次 B 增补 2026-11-10（QueueManager 跳转队列 / ViewNotice 城市跳转）----
+            static instance: GotoManager;
+            static boundFor(cfg: any): any;
+            boundForMap(...args: any[]): any;
+            boundForCaptain(...args: any[]): any;
         }
     }
 }
@@ -618,7 +679,14 @@ declare module Laya {
         static uploadUserData(id: any, arr: any): void;
         static payClose(data: any): void;
         static recodrd_pay_info: any;   // 原文拼写如此
+        // ---- 批次 B 增补 2026-11-10（ConfigApp.initH5sdk 装配 SDK / ConfigServer 按渠道改写配置）----
+        static h5_sdk: any;
+        static pf_login_data: any;
+        static changeConfigJsonHttpByPf(cfg: any): any;
     }
+
+    /** 批次 B 增补 2026-11-10：ConfigApp.initPCHD 读写 Laya.Config（引擎运行时对象，d.ts 未登记） */
+    var Config: any;
 
     // -----------------------------------------------------------------------
     // TBMiniGameAdapter —— IDE 自带模板 src/LayaSample.ts（2.x 模板，本批不可改动）

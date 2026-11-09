@@ -227,6 +227,8 @@ declare namespace sg {
         /** sg.utils.ThirdRecording（包装变量 fs） */
         class ThirdRecording {
             static setPay(info: any): void;
+            // ---- 批次 D 增补 2026-11-10（ModelUser 统计上报）----
+            static setUid(...args: any[]): any;
         }
         /** sg.utils.Spine（包装变量 _s） */
         class Spine {
@@ -241,10 +243,15 @@ declare namespace sg {
             static stageLockOrUnlock(method: any, lock: any, unlock?: any): void;
             static isShowLoadingAni: boolean;
             static unlock(id: any, name: any): any;  // 返回含 .stop
+            // ---- 批次 D 增补 2026-11-10（ModelInside/ModelGame 引导门禁）----
+            static sLockDic: any;
+            static checkBaseBuildUpgradeGuide(...args: any[]): any;
         }
         /** sg.model.ModelUser（包装变量 Kr，池化名 t(6623)） */
         class ModelUser {
             static getCountryID(): any;
+            // ---- 批次 D 增补 2026-11-10（ModelUser 国战军队判定；已译同名类走 import 消歧）----
+            static isHaveCountryArmy(...args: any[]): any;
         }
         /** sg.model.ModelPlayer（包装变量 Br，池化名 t(16506)） */
         class ModelPlayer {
@@ -257,17 +264,34 @@ declare namespace sg {
         /** sg.model.ModelClub（包装变量 $o，池化名 t(238)） */
         class ModelClub {
             static EVENT_COUNTRY_REDBAG: string;
+            // ---- 批次 D 增补 2026-11-10（ModelChat/ModelClub 外星人消息）----
+            static EVENT_ALIEN_MSG: any;
+            static SOCEKET_GET_CLUB_ALIEN: any;   // 原文拼写如此（SOCKET）
         }
         /** sg.model.ModelVisit（包装变量 $r，池化名 t(1372)） */
         class ModelVisit {
             static visitModels: any;
             static EVENT_UPDATE_VISIT: string;
+            // ---- 批次 D 增补 2026-11-10（ModelGame/ModelUser 访客数据面）----
+            static visitFastAdminArr: any;
+            static updateData(...args: any[]): any;
+            initData(...args: any[]): any;
+            initOldData(...args: any[]): any;
         }
         /** sg.model.ModelEstate（包装变量 hr，池化名 t(2664)） */
         class ModelEstate {
             static myEstates: any;
             // ---- 批次 B 增补 2026-11-10（ConfigServer 交易开关）----
             static isTradeOpen(): any;
+            // ---- 批次 D 增补 2026-11-10（ModelGame/ModelUser 庄园静态面与构造）----
+            constructor(...args: any[]);
+            static estateModels: any;
+            static estateFastAdminArr: any;
+            static initEstate(...args: any[]): any;
+            static myCountryEstates(...args: any[]): any;
+            static removeMyEstate(...args: any[]): any;
+            static saveLocalEstate6(...args: any[]): any;
+            static updateCoutryEstate(...args: any[]): any;   // 原文拼写如此（Country）
         }
         /** sg.model.ModelOnlineReward（包装变量 Us，池化名 t(343)） */
         class ModelOnlineReward {
@@ -276,16 +300,33 @@ declare namespace sg {
         /** sg.model.ModelProp（包装变量 Ar，池化名 t(2865)） */
         class ModelProp {
             static ITEM_CREIDT: string;   // 原文拼写如此（credit）
+            // ---- 批次 D 增补 2026-11-10（ModelProp PVE 礼包字典）----
+            static pve_gift_dict: any;
         }
         /** sg.model.ModelBuiding（包装变量 zo，池化名 t(2217)） */
         class ModelBuiding {
             static material_type: any[];
+            // ---- 批次 D 增补 2026-11-10（ModelInside/ModelUser 建筑静态面；注册名拼写 Buiding 原文如此）----
+            static army_type_building: any;
+            static buildingModels: any;
+            static check_produce_id(...args: any[]): any;
+            static getArmyBuildingLvCfg(...args: any[]): any;
+            static getBaggageId(...args: any[]): any;
+            static getMaterialEnough(...args: any[]): any;
+            static isBaggageBubble(...args: any[]): any;
+            static isBaggageBubble1(...args: any[]): any;
         }
         /** sg.model.ModelItem（包装变量 yr，池化名 t(6604)） */
         class ModelItem {
             static checkItemGotoBag(id: any): boolean;
             // ---- 批次 B 增补 2026-11-10（AssetsManager 货币小图标）----
             static getItemIcon(id?: any): any;
+            // ---- 批次 D 增补 2026-11-10（ModelClimb/ModelProp 道具静态与实例面）----
+            static getItemIcon(id?: any, flag?: any): any;
+            static getItemIconAssetUI(...args: any[]): any;
+            static getItemName(...args: any[]): any;
+            static getMyItemNum(...args: any[]): any;
+            initData(...args: any[]): any;
         }
         /** sg.model.ModelHero（包装变量 _r，池化名 t(3066)） */
         class ModelHero {
@@ -301,6 +342,18 @@ declare namespace sg {
             static isShowNewHeroFeature(): any;
             static isShowHeroCounter(): any;
             static sBestHid: any;
+            // ---- 批次 D 增补 2026-11-10（ModelChat/ModelUser 武将静态与实例面）----
+            constructor(...args: any[]);
+            static getHeroName(id?: any, b?: any): any;
+            static getIndexById(...args: any[]): any;
+            static getHeroStarColorName(...args: any[]): any;
+            static checkTitleIsOK(...args: any[]): any;
+            static rarity_name: any;
+            static sBestHeroArr: any;
+            static setFestivalHids(...args: any[]): any;
+            setData(...args: any[]): any;
+            getPrepare(...args: any[]): any;
+            mModelPrepare: any;
         }
         /** sg.model.ModelHeroPure（包装变量 gr，池化名 t(17278)） */
         class ModelHeroPure {
@@ -314,16 +367,33 @@ declare namespace sg {
             static getName(id?: any): any;
             static getStarById(id?: any): any;
             static getInfoHtml(id?: any, n?: any): any;
+            // ---- 批次 D 增补 2026-11-10（ModelGame 皮肤实例缓存）----
+            constructor(...args: any[]);
+            static initLocalData(...args: any[]): any;
         }
         /** sg.model.ModelBeast（包装变量 Go，池化名 t(6453)） */
         class ModelBeast {
             static showTipsPanel(id: any, flag: any): void;
+            // ---- 批次 D 增补 2026-11-10（ModelUser 神兽静态面）----
+            static checkBeastSuperData(...args: any[]): any;
+            static getModel(...args: any[]): any;
+            static getIndexById(...args: any[]): any;
+            static setBeastPoint(...args: any[]): any;
         }
         /** sg.model.ModelRune（包装变量 Pr，池化名 t(14945)） */
         class ModelRune {
             static getNum(id: any): any;
             // ---- 批次 B 增补 2026-11-10（ConfigServer 清库）----
             static runeModels: any;
+            // ---- 批次 D 增补 2026-11-10（ModelUser 符文静态与实例面）----
+            static getConfig(...args: any[]): any;
+            static getIndexById(...args: any[]): any;
+            initData(...args: any[]): any;
+            fix_type: any;
+            exp_type: any;
+            name: any;
+            index: any;
+            getImgName(...args: any[]): any;
         }
     }
 
@@ -332,6 +402,8 @@ declare namespace sg {
             /** sg.guide.view.GuideFocus（包装变量 qi） */
             class GuideFocus {
                 static focusOut(): void;
+                // ---- 批次 D 增补 2026-11-10（ModelUser 引导聚焦）----
+                static focusInSprite(...args: any[]): any;
             }
             /** sg.guide.view.ViewGuide（包装变量 sp） */
             class ViewGuide { static instance: ViewGuide; }
@@ -343,6 +415,13 @@ declare namespace sg {
                 static battleOver(): void;
                 // ---- 批次 B 增补 2026-11-10（NetSocket 引导数据注入）----
                 static getGuideData(t?: any): any;
+                // ---- 批次 D 增补 2026-11-10（ModelGame/ModelUser 引导执行面）----
+                static instance: ModelGuide;
+                static isNewPlayerGuide(...args: any[]): any;
+                static executeGuide(...args: any[]): any;
+                static getGuideAssets(...args: any[]): any;
+                static once(...args: any[]): any;
+                once(...args: any[]): any;
             }
         }
     }
@@ -357,12 +436,16 @@ declare namespace sg {
                 static testAni: any;
                 static isTestMsg: any;
                 static mapEdit: any;
+                // ---- 批次 D 增补 2026-11-10（ModelUser 测试过滤）----
+                static filterUserData(...args: any[]): any;
             }
         }
         namespace view {
             /** sg.map.view.AroundManager（包装变量 xe） */
             class AroundManager {
                 static initVexData(): void;
+                // ---- 批次 D 增补 2026-11-10（MapModel 周边实体初始化）----
+                static initData(...args: any[]): any;
             }
         }
         namespace model {
@@ -396,6 +479,13 @@ declare namespace sg {
         class ConfigConstant {
             static mapName: string;
             static mapConfigData: any;
+            // ---- 批次 D 增补 2026-11-10（MapModel/寻路常量面）----
+            static mapData: any;
+            static mapDataName: any;
+            static fubenName: any;
+            static homeConfigData: any;
+            static ENTITY_CITY: any;
+            static WAY_DIST_UNIT: any;
         }
     }
 
@@ -411,6 +501,9 @@ declare namespace sg {
             checkData(): void;
             mData: any[];
             viewID: any;
+            // ---- 批次 D 增补 2026-11-10（ModelGame/ModelUser 免费礼包数据面）----
+            addData(...args: any[]): any;
+            gtaskTime: any;
         }
     }
 
@@ -419,6 +512,8 @@ declare namespace sg {
         class ModelBigShot {
             static instance: ModelBigShot;
             CreateBigShot(): void;
+            // ---- 批次 D 增补 2026-11-10（ModelUser 大亨数据刷新）----
+            refreshData(...args: any[]): any;
         }
     }
 
@@ -543,6 +638,8 @@ declare namespace sg {
             // ---- 批次 B 增补 2026-11-10（ViewNotice 战斗内跳转）----
             static instance: MapViewMain;
             sendNetToInFight(...args: any[]): any;
+            // ---- 批次 D 增补 2026-11-10（ModelCountryPvp 加载完成探测）----
+            loadComplete: any;
         }
     }
 
@@ -555,6 +652,11 @@ declare namespace sg {
             // ---- 批次 B 增补 2026-11-10（ViewNotice 城市 / EffectManager 战斗态）----
             static getCurrCityId(): any;
             static inFight: any;
+            // ---- 批次 D 增补 2026-11-10（ModelArena/ModelChat/ModelUser 战斗入口）----
+            static startBattle(...args: any[]): any;
+            static startCountryBattle(...args: any[]): any;
+            static startLogBattle(...args: any[]): any;
+            exit(...args: any[]): any;
         }
         namespace logic.utils {
             /** sg.fight.logic.utils.PassiveStrUtils（包装变量 Ui，池化名 t(16572)） */
@@ -569,6 +671,9 @@ declare namespace sg {
         class ModelGodMain {
             static instance: ModelGodMain;
             getModel(id: any): any;
+            // ---- 批次 D 增补 2026-11-10（ModelInside/ModelUser 神灵开关与刷新）----
+            active: any;
+            refreshData(...args: any[]): any;
         }
         /** sg.god.model.ModelGod（包装变量 Gi，池化名 t(17504)） */
         class ModelGod {
@@ -582,6 +687,11 @@ declare namespace sg {
             static instance: ModelArmMain;
             getArm(id: any): any;
         }
+        // ---- 批次 D 增补 2026-11-10（ModelGame 国库事件面）----
+        class ModelCountryStoreroom {
+            static instance: any;
+            static COUNTYR_STOREROOM_FRESH: any;   // 原文拼写 COUNTYR 如此
+        }
     }
 
     namespace heritage {
@@ -589,6 +699,9 @@ declare namespace sg {
         class ModelHeritage {
             static instance: ModelHeritage;
             getHeritageById(id: any): any;
+            // ---- 批次 D 增补 2026-11-10（ModelInside 遗产开关与数据）----
+            active: any;
+            getBabbleData(...args: any[]): any;
         }
     }
 
@@ -596,6 +709,8 @@ declare namespace sg {
         /** sg.kismet.model.ModelKit（包装变量 se，池化名 t(6557)） */
         class ModelKit {
             static validate(id: any): boolean;
+            // ---- 批次 D 增补 2026-11-10（MapModel 装件索引）----
+            static getIndexById(...args: any[]): any;
         }
         /** sg.kismet.model.ModelKismet（包装变量 Bo，池化名 t(11187)） */
         class ModelKismet {
@@ -613,6 +728,18 @@ declare namespace sg {
             static boundFor(cfg: any): any;
             boundForMap(...args: any[]): any;
             boundForCaptain(...args: any[]): any;
+            // ---- 批次 D 增补 2026-11-10（ModelInside/ModelGame/ModelUser 跳转宽面）----
+            static boundForPanel(name: any, a?: any, b?: any): void;
+            static getBuild(...args: any[]): any;
+            static boundFor(...args: any[]): any;
+            static boundForArena(...args: any[]): any;
+            static boundForHeroCatche(...args: any[]): any;   // 原文拼写如此（Catch）
+            static showView(...args: any[]): any;
+            boundForPanel(...args: any[]): any;
+            boundFor(...args: any[]): any;
+            boundForArena(...args: any[]): any;
+            boundForHeroCatche(...args: any[]): any;
+            showView(...args: any[]): any;
         }
     }
 }

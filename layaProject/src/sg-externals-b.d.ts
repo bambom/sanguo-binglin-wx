@@ -42,6 +42,10 @@ declare namespace sg {
             getMinutes(): number;
             getSeconds(): number;
             getMilliseconds(): number;
+            // ---- 批次 D 增补 2026-11-10（ModelUser 日期面）----
+            getDate(): any;
+            getFullYear(): any;
+            getMonth(): any;
         }
         /** sg.utils.MessagePack（NetSocket 用） */
         class MessagePack {
@@ -58,6 +62,8 @@ declare namespace sg {
             /** sg.map.utils.ArrayUtils（包装变量 ge）—— 含 sortOn 多键排序 */
             class ArrayUtils {
                 static sortOn(keys: any, arr: any, a?: any, b?: any): any;
+                // ---- 批次 D 增补 2026-11-10（AStarFind 排序工具面）----
+                static remove(...args: any[]): any;
             }
             /** sg.map.utils.Math2（包装变量 ye）—— 角度换算等 */
             class Math2 {
@@ -74,6 +80,12 @@ declare namespace sg {
                 /** sg.map.model.entitys.EntityCity（EffectManager 用） */
                 class EntityCity {
                     static getCityRes(t: any): any;
+                    // ---- 批次 D 增补 2026-11-10（AStarFind 寻路静态面）----
+                    static getPathDist(...args: any[]): any;
+                    static getConnectKey(...args: any[]): any;
+                    // ---- 批次 D 增补 2026-11-10（MapModel 城市实例面）----
+                    cityId: any;
+                    initConfig(...args: any[]): any;
                 }
             }
         }
@@ -97,6 +109,13 @@ declare namespace sg {
         class ModelEquip {
             static canBuyEquipItem(id: any, e?: any): boolean;
             static equipModels: any;
+            // ---- 批次 D 增补 2026-11-10（ModelInside/ModelUser 装备静态面）----
+            static checkUpgradeEquipId(...args: any[]): any;
+            static getCDingModel(...args: any[]): any;
+            static getConfig(...args: any[]): any;
+            static getIndexById(...args: any[]): any;
+            static getName(...args: any[]): any;
+            static getTypeNameByType(...args: any[]): any;
         }
         // ---- ModelAlert / ModelManager / QueueManager / ConfigServer 引用面（批次外模型）----
         class ModelClimb {
@@ -113,17 +132,43 @@ declare namespace sg {
             static getCityName(id?: any): any;
             static getCountrNoticeData(): any;
             static checkCountryKingTips(): any;
+            // ---- 批次 D 增补 2026-11-10（ModelInside/ModelUser 官职静态面）----
+            static country_store_types: any;
+            static getXYCountryId(...args: any[]): any;
+            static updateFightEnd(...args: any[]): any;
         }
         /** sg.model.ModelOffice（ConfigServer.useOffice37 / ModelAlert 官署红点） */
         class ModelOffice {
             static useOffice37(): any;
             static checkLocalRedPoint(): any;
             static checkOfficeWill(): any;
+            // ---- 批次 D 增补 2026-11-10（ModelUser 官署静态面）----
+            static checkOfficeCanUp(...args: any[]): any;
+            static getOfficeName(...args: any[]): any;
+            static setLocalRedPoint(...args: any[]): any;
         }
-        class ModelSPArmy { static redPoint: any; static models: any; }
-        class ModelSoul { static redPoint: any; static models: any; }
+        class ModelSPArmy {
+            static redPoint: any;
+            static models: any;
+            // ---- 批次 D 增补 2026-11-10（ModelUser 特殊兵种静态面）----
+            static getModel(...args: any[]): any;
+            static getSpArmyByBag(...args: any[]): any;
+        }
+        class ModelSoul {
+            static redPoint: any;
+            static models: any;
+            // ---- 批次 D 增补 2026-11-10（MapModel 英灵索引）----
+            static getIndexById(...args: any[]): any;
+        }
         class ModelTask {
             static checkWorkWill(): any;
+            // ---- 批次 D 增补 2026-11-10（ModelInside/ModelUser 国家任务静态面）----
+            static gTask_city_data: any;
+            static gTask_need: any;
+            static gTask_score: any;
+            static gTask_self_take: any;
+            static gTask_self_take_arr: any;
+            static getStoryData(...args: any[]): any;
         }
         class ModelTaskBuild { static instance: any; }
         class ModelTaskCountry { static instance: any; }
@@ -137,15 +182,30 @@ declare namespace sg {
         class ModelTomb { static instance: any; }
         class ModelChampion { static instance: any; }
         class ModelHappy { static instance: any; }
-        class ModelArena { static instance: any; }
+        class ModelArena {
+            static instance: any;
+            // ---- 批次 D 增补 2026-11-10（ModelArena 场次文案表，imgArr/textArr_S/nameArr 同批已译）----
+            static textArr: any;
+        }
         class ModelAwaken { static instance: any; static awakenModels: any; }
         class ModelBlessHero { static instance: any; static clearModels(): any; }
         class ModelBuff { static instance: any; static expeditionCid: any; }
         class ModelChampionNew { static instance: any; }
         class ModelChat { static instance: any; }
-        class ModelCountryPvp { static instance: any; }
+        class ModelCountryPvp {
+            static instance: any;
+            // ---- 批次 D 增补 2026-11-10（ModelChat/ModelUser 国战静态面）----
+            static country_name: any;
+            static getCaptainID(...args: any[]): any;
+            static getCountryID(...args: any[]): any;
+        }
         class ModelFightTask { static instance: any; }
-        class ModelFormation { static instance: any; static getArmySize(...args: any[]): any; }
+        class ModelFormation {
+            static instance: any;
+            static getArmySize(...args: any[]): any;
+            // ---- 批次 D 增补 2026-11-10（ModelUser 编队初始化）----
+            static initFormationObj(...args: any[]): any;
+        }
         class ModelGuild { static instance: any; }
         class ModelGwent { static instance: any; }
         class ModelIdolLogin { static instance: any; }
@@ -153,15 +213,52 @@ declare namespace sg {
         class ModelMB { static instance: any; }
         class ModelNGTask { static instance: any; }
         class ModelNewTask { static instance: any; }
-        class ModelSalePay { static instance: any; static getOverdueList(): any; }
-        class ModelScheme { static instance: any; static models: any; }
-        class ModelScience { static instance: any; static modelSciences: any; }
+        class ModelSalePay {
+            static instance: any;
+            static getOverdueList(): any;
+            // ---- 批次 D 增补 2026-11-10（ModelUser 促销静态面）----
+            static initModels(...args: any[]): any;
+            static getNumByPId(...args: any[]): any;
+            static getMaxSaleByPId(...args: any[]): any;
+        }
+        class ModelScheme {
+            static instance: any;
+            static models: any;
+            // ---- 批次 D 增补 2026-11-10（ModelUser 锦囊静态面；isOepn 拼写原文如此）----
+            static isOepn(...args: any[]): any;
+            static hasCanInstallScheme(...args: any[]): any;
+            static checkSchemeHeroObj(...args: any[]): any;
+        }
+        class ModelScience {
+            static instance: any;
+            static modelSciences: any;
+            // ---- 批次 D 增补 2026-11-10（ModelInside/ModelUser 科技静态面）----
+            static getCDingModel(...args: any[]): any;
+            static check_science_day_get(...args: any[]): any;
+            static func_sum_type(...args: any[]): any;
+            static getConfig(...args: any[]): any;
+        }
         class ModelSettings { static instance: any; }
-        class ModelSkill { static instance: any; static skillModels: any; static isLearnable(id?: any): any; }
+        class ModelSkill {
+            static instance: any;
+            static skillModels: any;
+            static isLearnable(id?: any): any;
+            // ---- 批次 D 增补 2026-11-10（ModelInside/ModelUser 技能静态面）----
+            static getEstateSID(...args: any[]): any;
+            static heroVisitSkillId: any;
+            static cityBuildSkillId: any;
+            static getModel(...args: any[]): any;
+            static getSkillName(...args: any[]): any;
+        }
         class ModelTalent { static instance: any; static talentModels: any; }
         class ModelTradeShop { static instance: any; }
         class ModelTroopManager { static instance: any; }
-        class ModelViewHomeLand { static instance: any; }
+        class ModelViewHomeLand {
+            static instance: any;
+            // ---- 批次 D 增补 2026-11-10（ModelUser 家园面板常量）----
+            static CHOOSE_PANEL: any;
+            static TYPE_CREATE: any;
+        }
     }
 
     namespace view {
@@ -237,6 +334,9 @@ declare namespace sg {
                 /** sg.fight.logic.cfg.ConfigFight（gi） */
                 class ConfigFight {
                     static init(): void;
+                    // ---- 批次 D 增补 2026-11-10（ModelCountryPvp 战斗奖励常量）----
+                    static REWARD_KEYS: any;
+                    static overflowSpeedUp: any;
                 }
             }
             namespace utils {
@@ -249,6 +349,8 @@ declare namespace sg {
                     static mergeObj(...args: any[]): any;
                     static arrayToObject(...args: any[]): any;
                     static mix(...args: any[]): any;
+                    // ---- 批次 D 增补 2026-11-10（ModelGwent 对象比较）----
+                    static compareObj(...args: any[]): any;
                 }
             }
         }
@@ -297,6 +399,8 @@ declare namespace sg {
             class ModelAchievement {
                 static instance: any;
                 static clear(): void;
+                // ---- 批次 D 增补 2026-11-10（ModelUser 成就判定）----
+                static isGetAchi(...args: any[]): any;
             }
         }
     }
@@ -337,6 +441,10 @@ declare namespace sg {
             /** sg.kunlun.model.ModelExorcism / ModelKunlunSale */
             class ModelExorcism { static instance: any; }
             class ModelKunlunSale { static instance: any; }
+            // ---- 批次 D 增补 2026-11-10（ModelInside/ModelUser 昆仑系模型）----
+            class ModelKunlun { static intance: any; }   // 惰性单例注册名 "intance" 原文拼写如此
+            class ModelWilderness { static instance: any; }
+            class ModelKunlunPeach { static instance: any; }
         }
     }
 
@@ -474,5 +582,277 @@ declare namespace sg.model {
         thirdLoginType: any;
         getVisitorData(i: any, e: any): any;
         getVisitorDataTemp(i: any, e: any): any;
+    }
+}
+
+// ==================== 批次 D 增补 2026-11-10（C2 模型层触达面）====================
+// 追加规则同批次 C：本节只新增声明（含命名空间重开与 interface 合并），零改动上文已有行。
+// 身份依据（code1.js 注册处实测 + var-map-all.json/finddef.js 复核，工具
+// temp/sanguo-binglin-wx/analysis/batch_d/；详见 translation-ledger.md §13）：
+//   Qs=sg.model.ModelKunlun（"intance" 原文拼写）、zo=sg.model.ModelBuiding、
+//   Ps=sg.activities.model.ModelWXShare、sn=sg.map.model.CountryArmy 等。
+declare namespace sg.model {
+    class ModelFTask {
+        constructor(...args: any[]);
+        static ftaskModels: any;
+    }
+    class ModelTroop {
+        constructor(...args: any[]);
+        static TROOP_STATE_IDLE: any;
+        static TROOP_STATE_MOVE: any;
+        static TROOP_STATE_RECALL: any;
+        static TROOP_STATE_MONSTER: any;
+        id: any;
+        setData(...args: any[]): any;
+    }
+    class ModelCityBuild {
+        static EVENT_UPDATE_CITY_BUILD: any;
+        static cityBuildModels: any;
+        static getCityName(...args: any[]): any;
+        static getGreatWall(...args: any[]): any;
+        static getResouceByCity(...args: any[]): any;
+        static initCityBuild(...args: any[]): any;
+        static removeCityBuild(...args: any[]): any;
+    }
+    class ModelOfficeRight {
+        static func_addtroop: any;
+        static func_buildworkerNum: any;
+        static func_gtaskcount: any;
+        static haveRight(...args: any[]): any;
+        static rightTypeAvailable(...args: any[]): any;
+    }
+    class ModelShop {
+        constructor(...args: any[]);
+        static shopModels: any;
+    }
+    class ModelPrepare {
+        static getData(...args: any[]): any;
+        static getArmyRankData(...args: any[]): any;
+        static getFormatPower(...args: any[]): any;
+    }
+    class ModelBuffManager { static instance: any; static BUFF_CHANGED: any; }
+    class ModelTitle {
+        static getIndexById(...args: any[]): any;
+        static getSortObject(...args: any[]): any;
+    }
+    class ModelDungeon { static instance: any; }
+    class ModelAntiAddiction { static instance: any; }
+    class ModelArmyUpgrade { static updateArmyUpgradeData(...args: any[]): any; }
+    class ModelArmyScience { static updateHarmmer(...args: any[]): any; }
+    class ModelCabinet { static instance: any; }
+    class ModelFightLog_H { static instance: any; }
+    class ModelShogun {
+        static isOpen(...args: any[]): any;
+        static redPoint: any;
+        static shogun_name: any;
+    }
+    class ModelXYZ2 { constructor(...args: any[]); }
+    class ModelSchemeEgg { static instance: any; }
+    class ModelDoomTower { static getDoomLv(...args: any[]): any; }
+    class ModelMeritExchange { static instance: any; }
+    class ModelHonour { static instance: any; }
+    class ModelRankNew {
+        static initModels(...args: any[]): any;
+        static getTodayModel(...args: any[]): any;
+    }
+    class ModelFestivalAsk { static instance: any; }
+    class UserDataProxy { constructor(...args: any[]); }
+    /** 与批次 A class ModelPlayer 再合并：ModelUser 登录/分区/账号写入面 */
+    interface ModelPlayer {
+        setCurrZone(t: any): any;
+        mPlayer: any;
+        tel: any;
+        setUID(...args: any[]): any;
+        setName(...args: any[]): any;
+        setPWDs(...args: any[]): any;
+        setPlayerCardID(...args: any[]): any;
+        setSessionid(...args: any[]): any;
+        setZoneList(...args: any[]): any;
+        setPlayerList(...args: any[]): any;
+        setServerZonesFormate(...args: any[]): any;
+        clearReadyTemp(...args: any[]): any;
+    }
+}
+declare namespace sg.activities.model {
+    class ModelAuction { static instance: any; }
+    class ModelEquipBox { static instance: any; }
+    class ModelSpArmyBox { static active(...args: any[]): any; }
+    class ModelAfficheMerge { static instance: any; }
+    class ModelOptionalOnes { static instance: any; }
+    class ModelSurpriseGiftNew { static instance: any; }
+    class ModelWXShare { static instance: any; }
+    class ModelHappy { static instance: any; }
+}
+declare namespace sg.festival.model {
+    class ModelFestivalAsk { static instance: any; }
+}
+declare namespace sg.altar {
+    namespace legend { namespace model { class ModelLegend { static instance: any; } } }
+    namespace legendAwaken { namespace model { class ModelLegendAwaken { static instance: any; } } }
+}
+declare namespace sg.cross_pvp {
+    namespace model {
+        class ModelCrossPvp {
+            static instance: any;
+            static STATUS_WAIT_PVE: any;
+        }
+    }
+}
+declare namespace sg.jigsaw {
+    namespace model { class ModelJigsaw { static instance: any; } }
+}
+declare namespace sg.interior {
+    namespace model {
+        class ModelCityControl {
+            static isOpen(...args: any[]): any;
+            static checkCityControl(...args: any[]): any;
+            static checkCityControlOnFire(...args: any[]): any;
+        }
+    }
+}
+declare namespace sg.seaRoute {
+    class ModelSeaRoute { static instance: any; }
+}
+declare namespace sg.meritExchange {
+    class ViewMeritExchange { }
+}
+declare namespace sg.explore {
+    namespace model { class ModelTreasureHunting { static instance: any; } }
+}
+declare namespace sg.chessBoard {
+    namespace model { class ModelRelic { static getModel(...args: any[]): any; } }
+}
+declare namespace sg.homeland {
+    namespace model { class ModelHomeLand { static instance: any; } }
+    namespace view { class HomelandUser { static view_homeland(...args: any[]): any; } }
+}
+declare namespace sg.achievement {
+    namespace view { class AchievementHint { constructor(...args: any[]); } }
+}
+declare namespace sg.puppet {
+    class PuppetUtils { static building_store: any; }
+}
+declare namespace sg.task {
+    namespace model {
+        class ModelTaskBase {
+            type: any;
+            typeIndex: any;
+            getFirstData(...args: any[]): any;
+        }
+        class ModelTaskMain { static instance: any; }
+        class ModelTaskChapter { static instance: any; }
+        class ModelTaskDaily { static instance: any; }
+        class ModelTaskTrain { static instance: any; }
+        class ModelTaskBuild { static instance: any; }
+        class ModelTaskOrder { static instance: any; }
+        class ModelTaskPromote { static instance: any; }
+    }
+}
+declare namespace sg.scene {
+    namespace model { class MapGrid { constructor(...args: any[]); } }
+}
+declare namespace sg.home {
+    namespace model { namespace entitys {
+            class EntityBuild {
+                constructor(...args: any[]);
+                id: any;
+                initConfig(...args: any[]): any;
+            }
+        } }
+}
+declare namespace sg.map {
+    namespace model {
+        class CountryArmy {
+            constructor(...args: any[]);
+            static map: any;
+            init(...args: any[]): any;
+        }
+        class PatriotArmy {
+            constructor(...args: any[]);
+            init(...args: any[]): any;
+        }
+        namespace astar { class AstarNode { constructor(...args: any[]); } }
+        namespace entitys {
+            class EntityArena {
+                constructor(...args: any[]);
+                [key: string]: any;
+                setPos(...args: any[]): any;
+                index: any;
+            }
+            class EntityGtask {
+                constructor(...args: any[]);
+                [key: string]: any;
+            }
+            class EntityHeroCatch { constructor(...args: any[]); }
+            class EntityHeroDrink { constructor(...args: any[]); }
+            class EntityMarch {
+                constructor(...args: any[]);
+                [key: string]: any;
+            }
+            class EntityMonster {
+                constructor(...args: any[]);
+                [key: string]: any;
+            }
+        }
+    }
+    namespace utils {
+        class Vector {
+            constructor(x?: any, y?: any);
+            x: any;
+            y: any;
+            add(v: any): any;
+        }
+        class MapUtils { static parseKey(...args: any[]): any; }
+        class LogicOperation {
+            static armyFood(...args: any[]): any;
+            static armyGo(...args: any[]): any;
+        }
+    }
+    namespace view {
+        class TroopAnimation { static backTroop: any; }
+    }
+}
+declare namespace sg.utils {
+    class FontManager {
+        static changeSize(...args: any[]): any;
+        static setFont(...args: any[]): any;
+    }
+}
+declare namespace sg.fight {
+    namespace logic {
+        namespace utils { class FightDuplicateUtils { static getFloorName(...args: any[]): any; } }
+    }
+    namespace test {
+        class TestCopyright { static sendInit(...args: any[]): any; }
+        class TestCopyrightData { static init(...args: any[]): any; }
+    }
+}
+declare namespace sg.view {
+    namespace task { namespace ng_task { class C_NGTask { static instance: any; } } }
+    namespace fight {
+        namespace gwent {
+            class C_Gwent {
+                static instance: any;
+                static UPDATE_UI: any;
+            }
+        }
+        namespace champion_sg_new { class C_Champion { static instance: any; } }
+    }
+    namespace levelupGift { class LevelupGiftModelManager { static instance: any; } }
+    namespace arena { class ViewArenaMain { } }
+    namespace country { class ViewAlienTroopInfo { } }
+    namespace countryPvp { class ViewCountryEmperorTips { } }
+    namespace init { class ViewAgeNotice { } }
+    namespace effect {
+        class ArmyUpgrade { static getEffect(...args: any[]): any; }
+        class BuildingFuncOpen { static getEffect(...args: any[]): any; }
+        class EquipGet { static getEffect(...args: any[]): any; }
+        class EquipUpgrade { static getEffect(...args: any[]): any; }
+        class EquipUpgradeLoser { static getEffect(...args: any[]): any; }
+        class UserPowerChange {
+            static getEffect(...args: any[]): any;
+            static titleName: any;
+            static tips: any;
+        }
     }
 }

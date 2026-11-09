@@ -74,7 +74,8 @@ require("game.js")
 - ✅ Laya 1.x 工程骨架建立 + LayaAirIDE 1.8.17 实机打开（editorVersion 已登记）
 - ⏳ CDN 资源按玩法全量镜像（561 文件/40MB：启动 + 主城/世界/四面板子集；商店/国家等未响应入口未覆盖）
 - ⏳ TS 业务源码恢复（code1.js 8.6MB 混淆 UMD → TS；台账已建 3,484 类；**批次 A 11 类 + 批次 B 54 类已交付**（tsc 2.6.2 全工程零错误，oracle 逐字节快照 65/65，token 区间零重叠；报告见 `Projects/RecoveryData/sanguo-binglin-wx/translation/batch-{a,b}-report.md`）；缓译清单含 Laya.Platform（109KB，token 区间在其 wrapper 内需独立授权）、ConfigClass、ViewMenuMain*、ui.com.* 注册面等）
-- ⏳ F8 运行页 + 玩法回归
+- ✅ F8 运行页装载链 PASS 至已翻译闭包边界（2026-11-10：原包 1.8.15beta 引擎全链 → loadSubpackage 拦截 → 65/65 译文模块求值零失败、sg=49/ui=11 注册、new LayaSample() 执行、Laya.init 画布建成；终止点 = Laya.Platform.initMiniGame，精确命中预测。验证页 `Tools/Projects/sanguo-binglin-wx/runtime/index-f8.html` + serve.py `/f8/` 路由；下一阻塞即批次 C1）
+- ⏳ 玩法回归（待批次 C 纵深：C1 Laya.Platform → C2 19 模型 → C3 菜单层 → C4 ConfigClass → C5 VIEW_LOAD）
 - ⏳ 发布替换验证、微信开发者工具对照
 
 各项验证均独立记录，未执行写 NOT_RUN。

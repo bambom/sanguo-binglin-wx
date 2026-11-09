@@ -42,7 +42,7 @@ require("game.js")
 | 分包 | root | 状态 |
 |---|---|---|
 | game | /code1.js | ✅ 已归档（_code1.js.wxapkg，8.6MB） |
-| preselection | /preselection/ | ❌ 微信缓存未下载，缺失待补齐（按 WECHAT-PACKAGE-COMPLETION.md） |
+| preselection | /preselection/ | ✅ 已补齐归档（2026-11-09 原生桥接 `wx.preDownloadSubpackage` 触发下载 → `_preselection_.wxapkg` 19,231B 归档解包，inventory missing=[]，见下文） |
 
 ## 工作副本脱敏记录
 
@@ -68,9 +68,11 @@ require("game.js")
 - ✅ CDN 在线性实测：`https://cdn-sg.fle078.com/static/h5/net_cfg.json` HTTP 200
 - ✅ 工作工程 `layaProject/`（6 文件根结构，原包只读复制品）
 - ✅ 浏览器基线 PASS（2026-11-09，见下节）
-- ⏳ preselection 分包补齐（微信缓存未下载）
+- ✅ preselection 分包补齐归档（2026-11-09，见「补齐记录」）
+- ✅ 真实微信凭据登录基线 PASS：本人账号经 37 SDK → gateway → 选服 → 主城（2026-11-09，见「真实登录基线」）
+- ✅ Laya 1.x 工程骨架建立 + LayaAirIDE 1.8.17 实机打开（editorVersion 已登记）
 - ⏳ CDN 资源按玩法全量镜像（当前 77 文件为启动请求子集）
-- ⏳ TS 业务源码恢复（code1.js 8.6MB 混淆 UMD → TS）
+- ⏳ TS 业务源码恢复（code1.js 8.6MB 混淆 UMD → TS；翻译台账已建：3,484 类，`Projects/RecoveryData/sanguo-binglin-wx/translation/`）
 - ⏳ F8 运行页 + 玩法回归
 - ⏳ 发布替换验证、微信开发者工具对照
 
@@ -90,3 +92,35 @@ require("game.js")
 - 非致命：腾讯 datanexus 遥测跨域失败（真实手机走微信原生通道，浏览器如实失败）、`monkey_version` 读取 unhandled-rejection（37 SDK 分支）
 - 画面证据：`temp/sanguo-binglin-wx/screenshots/baseline-loading-10pct.png`、`baseline-cover.png`（contain-fit 无变形，画布 750x1334 竖屏）
 - 启动日志镜像：`RecoverProject/sanguo-binglin-wx/Results/wx59-20261109-r001/browser-serve-log.jsonl`
+
+## preselection 补齐记录（2026-11-09，r015–r020）
+
+- 公共工具新增显式 scene 策略参数（`--bridge-log-filtered-scenes` / `--bridge-extra-scenes`，默认行为与上游逐字节等价，策略写入 scene-policy.json 证据）：实证桌面快捷方式启动 scene=**1023**（另有 1000，上游注释标注会崩进程故不放行），经 `--bridge-extra-scenes 1023` 放行后 NATIVE_CONNECTED，实现完全无人值守桥接（无需从微信内手动打开）。
+- 链路：contexts（原生 wx 上下文唯一匹配 appId）→ `wx.preDownloadSubpackage("preselection")` SUCCESS → archive：`_preselection_.wxapkg`（19,231B，SHA256 0357bee7…）归档至 `packages/59/`，解包入口 `preselection/game.js`，inventory `missing=[]`、`entriesWithoutArchivedEvidence=[]`、status=ALL_DECLARED_SUBPACKAGES_ARCHIVED。
+
+## 真实登录基线（2026-11-09，r021–r024）
+
+**结论：本人微信凭据完整登录链路 PASS，已进入主城。**
+
+- 装具：`serve.py --auth-session`（公共 `Native.WeChat.auth.LoginProvider`，`/__wechat_auth/*`）+ index.html wx.login 覆盖（真实 code 交付前置 `__recoveryAuthMode=true`，全页 console 脱敏；提供器不可用回退桩码并明示）。
+- 取码：`wechat-auth prepare`（身份绑定）→ capture（`NATIVE_WX_LOGIN_CONTEXT_BOUND` 等待恢复页请求）→ 基线页 wx.login → POST 唤醒 → `FRESH_NATIVE_CALLBACK_ACQUIRED`（codeLength=32，`consumedByOriginalGame=false`，callback.json 交付即删）→ 120 秒窗口内完成交付。
+- 登录链（全部经 /__api/ 透明转发，真实应答）：wx.login 真实 code → 37 SDK `gapigameh5.ohk36.com` 兑换接受 → gateway `user_zone.login` → 欢迎公告 → 选服「交州海市」→ **主城**（玩家「巴蜀战少」，资源条/大地图/任务/国战横幅/底部功能栏俱全）。
+- 画面证据（temp，不上传）：`temp/sanguo-binglin-wx/screenshots/login-01-announcement.png`、`login-02-server-select.png`、`login-03-main-city.png`。
+- 收尾：会话 cleanup 完成（binding/requested/consumed 之外无残留、callback 已删）、桥接 DETACHED。
+
+## 工作工程结构（LayaAirIDE 1.8.17 实机打开）
+
+```
+layaProject/
+├── game.js / code1.js / loading.png / app-config.json / version.json /
+│   project.private.config.json        ← 原包解包复制品（根位，与先例同构）
+├── layaProject.laya                   ← 工程标记（1.x 4 字段，无 version）
+├── tsconfig.json / .laya/{launch,tasks}.json（F8 = tsc -p . --outDir bin/js）
+├── laya/.laya / src/LayaSample.ts（占位，翻译批次替换）
+├── bin/index.html（H5 运行页，git 豁免跟踪）/ bin/libs/（1.8.17 引擎库，忽略）
+└── libs/（LayaAir.d.ts + layaAir.minigame.d.ts + union.d.ts）
+```
+
+- 结构与取值全部来自 IDE 1.8.17 模板/新建流程取证（9 文件逐字节副本 + 标记按 newPro.js 逻辑重建），详见 `temp/sanguo-binglin-wx/laya-staging/_README-STAGING.md`（过程数据）。
+- IDE 实机打开验证：`LayaAir.exe <工程目录>` argv 方式成功，窗口标题「layaProject - LayaAir」；`editorVersion=1.8.17` 已登记（engineVersion 保持原包 1.8.15beta）。
+- 已知约束：IDE 自带 tsc 为 TypeScript 2.6.2（恢复 TS 需兼容 TS2.6/es5）；`bin/libs`（1.8.17）只服务 H5 骨架预览，不得当作原包运行验证；`.laya/chrome/` 首次调试后需补忽略。

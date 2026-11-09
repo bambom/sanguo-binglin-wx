@@ -416,3 +416,63 @@ declare namespace ui {
         }
     }
 }
+
+// ==================== 批次 C 增补 2026-11-10（Laya.Platform 翻译触达面）====================
+// 追加规则：本节只新增声明（含与批次 A/B 既有 class 合并的 interface），零改动上文已有行。
+// 身份依据（code1.js 注册处实测，工具 temp/sanguo-binglin-wx/analysis/batch_c/
+// resolve_vars_c.js + probe_decl_c.js）：Ke=sg.sdks.Huawei、wn=sg.sdks.TxExeSdk、
+// hs=sg.utils.MD5、ts=sg.utils.Base64、Bit=sg.view.qqdt.ViewQQDT、Lr=sg.model.ModelQQDT、
+// oit=sg.view.menu.ViewPayWeb（showView 类引用，无成员访问）。
+declare namespace sg.sdks {
+    /** sg.sdks.Huawei（包装变量 Ke）—— 华为渠道签名/商店通道（obtainCheck/pay hw 分支） */
+    class Huawei {
+        static getToken(): any;
+        static getSign(): any;
+        static getAppID(): any;
+        static getCallBackURL(): any;
+        static getCpName(): any;
+        static getMerchantId(): any;
+    }
+    /** sg.sdks.TxExeSdk（包装变量 wn）—— 腾讯应用宝 SDK（i=运行时 SDK 实例） */
+    class TxExeSdk {
+        static i: any;
+    }
+}
+declare namespace sg.utils {
+    /** sg.utils.MD5（包装变量 hs） */
+    class MD5 {
+        static md5(s: any): any;
+    }
+    /** sg.utils.Base64（包装变量 ts） */
+    class Base64 {
+        static decode(s: any): any;
+    }
+}
+declare namespace sg.view {
+    namespace qqdt {
+        /** sg.view.qqdt.ViewQQDT（包装变量 Bit） */
+        class ViewQQDT {
+            static isTest: any;
+        }
+    }
+    namespace menu {
+        /** sg.view.menu.ViewPayWeb（包装变量 oit）—— muyou_ios_vn2/vn3 充值 WebView（类引用） */
+        class ViewPayWeb {
+        }
+    }
+}
+declare namespace sg.model {
+    /** sg.model.ModelQQDT（包装变量 Lr） */
+    class ModelQQDT {
+        static instance: ModelQQDT;
+        openId: any;
+        openKey: any;
+    }
+    /** 与批次 A 声明的 class ModelPlayer 合并（declaration merging，实例成员面）：
+     * Laya.Platform login 的游客登录链（"meng52"/"meng52_temp_user_pwd"/thirdLoginType=="fb"） */
+    interface ModelPlayer {
+        thirdLoginType: any;
+        getVisitorData(i: any, e: any): any;
+        getVisitorDataTemp(i: any, e: any): any;
+    }
+}

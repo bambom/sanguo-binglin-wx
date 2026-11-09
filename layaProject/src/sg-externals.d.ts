@@ -1,0 +1,635 @@
+/**
+ * sg-externals.d.ts —— 批次 A 外部运行时绑定（仅类型声明，无任何运行时代码）。
+ *
+ * 背景：原包 code1.js 是单一 UMD 闭包，全部类/配置经包装变量互引并经 Laya.class
+ * 注册到全局 sg 命名空间（sg 根对象由主包 game.js/code.js 链创建，台账 §5/§7-7）。
+ * 批次 A 只翻译 11 类；译文引用未翻译类时，按原文语义经全局注册路径
+ * （sg.xxx.Yyy / Laya.Yyy）在调用期解析——与原 UMD 闭包变量在调用期取值等价。
+ *
+ * 规则：
+ *  1. 本文件只声明批次 A 代码实际触碰的成员面；类型未取证处用 any。
+ *  2. 后续批次翻译到某类后，应删除对应声明并改用真实 TS 模块 import。
+ *  3. 成员名与原包逐字一致（含拼写错误如 recodrd_pay_info、clerMyTimer、enaled、
+ *     ModelBuiding、AssetsCounry——原文如此，不得"顺手修正"）。
+ */
+
+// ---------------------------------------------------------------------------
+// sg.<ns>.<Class> —— code1.js 内注册的业务类（批次 A 之外）
+// ---------------------------------------------------------------------------
+declare namespace sg {
+
+    namespace net {
+        /** sg.net.NetSocket（包装变量 pn，off [1399548 区域]，批次 B 目标） */
+        class NetSocket {
+            static instance: NetSocket;
+            send(method: any, data?: any, complete?: any, opts?: any): void;
+            on(type: any, caller: any, listener: any, args?: any): EventDispatcherLike;
+            off(type: any, caller: any, listener: any): EventDispatcherLike;
+            registerHandler(name: any, handler: any): void;
+            clear(): void;
+            clearEvents(): void;
+        }
+        /** sg.net.NetHttp（包装变量 fn） */
+        class NetHttp {
+            static instance: NetHttp;
+            send(method: any, data?: any, complete?: any, opts?: any): void;
+        }
+    }
+
+    namespace manager {
+        /** sg.manager.ModelManager（包装变量 ue，池化注册名 i(16259)） */
+        class ModelManager {
+            static instance: ModelManager;
+            static clear(): void;
+            init(): void;
+            modelUser: any;      // 含 updateData(data)/event(...) 等
+            modelGame: any;
+            modelAlert: any;
+            modelProp: any;
+            modelInside: any;
+            modelClub: any;
+            modelTroopManager: any;
+        }
+        /** sg.manager.AssetsManager（包装变量 re） */
+        class AssetsManager {
+            static getAssetsUI(name: any): any;
+            static getAssetItemOrPayByID(id: any): any;
+            static getAssetLater(name: any): any;
+            static clearTempAll(): void;
+        }
+        /** sg.manager.EffectManager（包装变量 le） */
+        class EffectManager {
+            static loadAnimation(url: any, skin?: any, n?: any): any;
+            static getAnimation(name: any): any;
+            static createIconFlight(a: any, b: any, c: any, d: any, e: any, f?: any, g?: any, h?: any, i?: any): void;
+            static textFlight(a: any, b: any, c: any, d: any, e?: any): void;
+            static itemFlight(a: any, b: any, c: any, d: any, e?: any, f?: any): void;
+            static loadHeroAnimation(a: any, b?: any, c?: any): any;
+            static setSprAccuracy(a: any, b: any, c?: any, d?: any, e?: any, f?: any, g?: any): void;
+        }
+        /** sg.manager.ColorManager（包装变量 ae） */
+        class ColorManager {
+            static getUIColor(name: any, i?: any): any;
+        }
+        /** sg.manager.QueueManager（包装变量 Zs，台账 §4 managers 组） */
+        class QueueManager {
+            static instance: QueueManager;
+            mIsOver: boolean;
+            event(type: string, data?: any): boolean;
+        }
+    }
+
+    namespace cfg {
+        /** sg.cfg.ConfigApp（包装变量 Rt，池化名 t(12677)） */
+        class ConfigApp {
+            static initCfg(): void;
+            static initPCHD(flag: any): void;
+            static initPCHDText(): void;
+            static initH5sdk(): void;
+            static setFont(): void;
+            static releaseMiniGame(): boolean;
+            static releaseWeiXin(): boolean;
+            static get_NET_CFG_URL(): any;
+            static get_ASSETS_BASE_URL(): any;
+            static lan(): any;
+            static myPackagePf: any;
+            static pf: string;
+            static pchd: any;
+            static isLandscape: boolean;
+            static isPC: boolean;
+            static isHorizontal: boolean;
+            static mVsdebug: boolean;
+            static isFirstInstall: boolean;
+            static cfgvers: any;
+            static sNetCfg: any;
+            /** 原文赋 parseInt 结果/布尔混用（initOnPC），按 any 保留动态语义 */
+            static isTest: any;
+            static testFightType: any;
+            static pf_channel: string;
+            static lclip1: any;
+            static topVal: number;
+            static avoidTop: number;
+            static avoidBottom: number;
+        }
+        /** sg.cfg.ConfigServer（包装变量 Gt，池化名 t(17516)）——运行时由配置装载填充 */
+        class ConfigServer {
+            static system_simple: any;   // token_recharge/wait_time/assetSeasonCfg/deviation
+            static notice: any;          // carouse_notice/notice_cn
+            static zone: any;
+            static title: any;
+            static hero: any;
+            static getServerName(zone: any): any;
+        }
+        /** sg.cfg.HelpConfig（包装变量 Wt） */
+        class HelpConfig {
+            static type_ui: string;
+            static type_app: string;
+        }
+        /** sg.cfg.ConfigClass（包装变量 Ht）——视图类常量（惰性静态） */
+        class ConfigClass {
+            static VIEW_LOAD_SG4: any;
+            static VIEW_LOAD: any;
+            static VIEW_TIPS_INFO: any;
+            static VIEW_GET_REWARD: any;
+            static VIEW_BAG_ITEM_TIPS: any;
+            static VIEW_EQUIP_MAKE_INFO: any;
+            static VIEW_SHOP_SKILL_TIPS: any;
+            static VIEW_HERO_TALENT_INFO: any;
+            static VIEW_SOUL_TIPS: any;
+            static VIEW_SCHEME_ITEM_TIPS: any;
+            static VIEW_HERITAGE_INFO: any;
+            static VIEW_SHOP_HERO_TIPS2: any;
+            static VIEW_SHOP_HERO_TIPS: any;
+            static VIEW_SHOP_EQUIP_TIPS: any;
+            static VIEW_SP_ARMY_TIPS: any;
+            static VIEW_GOD_SKILL_TIPS: any;
+            static VIEW_ESTATE_CHOOSE_HERO: any;
+            static VIEW_ESTATE_HERO: any;
+        }
+        /** sg.cfg.ConfigAssets（包装变量 Ft）——预载资源表（惰性静态） */
+        class ConfigAssets {
+            static AssetsInitLogin: any[];
+            static loadingMask: any[];
+            static AssetsCounry: any[];   // 原文拼写如此
+            static setLoadingAssets(): any[];
+        }
+        /** sg.cfg.ConfigUI（包装变量 Vt，池化名 t(9379)） */
+        class ConfigUI {
+            static heroShowRadar: any;
+        }
+    }
+
+    namespace utils {
+        /** sg.utils.Tools（包装变量 vs，池化名 t(1377)） */
+        class Tools {
+            static isNullObj(o: any): boolean;
+            static isNullString(s: any): boolean;
+            static getURLexp(key: any): any;
+            static getMsgById(id: any, args?: any): any;
+            static getTimeStamp(v: any): any;
+            static getServerOpenTimeCfg(): any;
+            static getTimeDate(v: any): any;
+            static getDictLength(d: any, flag?: boolean): number;
+            static isCanBuy(type: any, cost: any): boolean;
+            static checkAlertIsDel(key: any): boolean;
+            static textFitFontSize(txt: any): void;
+            static textLayout2(txt: any, img: any): void;
+            static getTimeStyle(t: any, n?: any): any;
+            static oneMinuteMilli: number;
+            static sMsgLocalDic: any;
+        }
+        /** sg.utils.SaveLocal（包装变量 us） */
+        class SaveLocal {
+            static getValue(key: any): any;
+        }
+        /** sg.utils.ObjectUtil（包装变量 cs） */
+        class ObjectUtil {
+            static keys(o: any): string[];
+            static values(o: any): any[];
+            static clone(o: any, flag?: boolean): any;
+        }
+        /** sg.utils.ArrayUtil（包装变量 Ze） */
+        class ArrayUtil {
+            static distinct(arr: any): any[];
+        }
+        /** sg.utils.StringUtil（包装变量 gs） */
+        class StringUtil {
+            static htmlFontColor(html: any, color: any): any;
+        }
+        /** sg.utils.MusicManager（包装变量 as） */
+        class MusicManager {
+            static init(): void;
+            static playSoundUI(name: any): void;
+            static playBackMusic(): void;
+        }
+        /** sg.utils.ObjectSingle（包装变量 ls）——视图单例缓存（按 __className 键） */
+        class ObjectSingle {
+            static getInstance(cls: any): any;
+            static clear(): void;
+        }
+        /** sg.utils.CustomLoader（包装变量 is，池化名 t(14882)） */
+        class CustomLoader {
+            static register(handler: any): void;
+        }
+        /** sg.utils.ThirdRecording（包装变量 fs） */
+        class ThirdRecording {
+            static setPay(info: any): void;
+        }
+        /** sg.utils.Spine（包装变量 _s） */
+        class Spine {
+            Load(path: any, a?: any, b?: any, c?: any, d?: any, cb?: any, parent?: any): void;
+            Play(n?: any): void;
+        }
+    }
+
+    namespace model {
+        /** sg.model.ModelGame（包装变量 lr，池化名 t(11112)） */
+        class ModelGame {
+            static stageLockOrUnlock(method: any, lock: any, unlock?: any): void;
+            static isShowLoadingAni: boolean;
+            static unlock(id: any, name: any): any;  // 返回含 .stop
+        }
+        /** sg.model.ModelUser（包装变量 Kr，池化名 t(6623)） */
+        class ModelUser {
+            static getCountryID(): any;
+        }
+        /** sg.model.ModelPlayer（包装变量 Br，池化名 t(16506)） */
+        class ModelPlayer {
+            static recommendServer: any;
+        }
+        /** sg.model.ModelClub（包装变量 $o，池化名 t(238)） */
+        class ModelClub {
+            static EVENT_COUNTRY_REDBAG: string;
+        }
+        /** sg.model.ModelVisit（包装变量 $r，池化名 t(1372)） */
+        class ModelVisit {
+            static visitModels: any;
+            static EVENT_UPDATE_VISIT: string;
+        }
+        /** sg.model.ModelEstate（包装变量 hr，池化名 t(2664)） */
+        class ModelEstate {
+            static myEstates: any;
+        }
+        /** sg.model.ModelOnlineReward（包装变量 Us，池化名 t(343)） */
+        class ModelOnlineReward {
+            static online_reward: number;
+        }
+        /** sg.model.ModelProp（包装变量 Ar，池化名 t(2865)） */
+        class ModelProp {
+            static ITEM_CREIDT: string;   // 原文拼写如此（credit）
+        }
+        /** sg.model.ModelBuiding（包装变量 zo，池化名 t(2217)） */
+        class ModelBuiding {
+            static material_type: any[];
+        }
+        /** sg.model.ModelItem（包装变量 yr，池化名 t(6604)） */
+        class ModelItem {
+            static checkItemGotoBag(id: any): boolean;
+        }
+        /** sg.model.ModelHero（包装变量 _r，池化名 t(3066)） */
+        class ModelHero {
+            static getTitleInfo(id: any): any;
+            static getTitleName(id: any): any;
+        }
+        /** sg.model.ModelHeroPure（包装变量 gr，池化名 t(17278)） */
+        class ModelHeroPure {
+            static getAwakenModel(id: any): any;
+        }
+        /** sg.model.ModelSkin（包装变量 Vr，池化名 t(12878)） */
+        class ModelSkin {
+            static getHeroId(id: any): any;
+        }
+        /** sg.model.ModelBeast（包装变量 Go，池化名 t(6453)） */
+        class ModelBeast {
+            static showTipsPanel(id: any, flag: any): void;
+        }
+        /** sg.model.ModelRune（包装变量 Pr，池化名 t(14945)） */
+        class ModelRune {
+            static getNum(id: any): any;
+        }
+    }
+
+    namespace guide {
+        namespace view {
+            /** sg.guide.view.GuideFocus（包装变量 qi） */
+            class GuideFocus {
+                static focusOut(): void;
+            }
+            /** sg.guide.view.ViewGuide（包装变量 sp） */
+            class ViewGuide { static instance: ViewGuide; }
+        }
+        namespace model {
+            /** sg.guide.model.ModelGuide（包装变量 js，池化名 t(18180)） */
+            class ModelGuide {
+                static forceGuide(): any;
+                static battleOver(): void;
+            }
+        }
+    }
+
+    namespace map {
+        namespace utils {
+            /** sg.map.utils.TestUtils（包装变量 be） */
+            class TestUtils {
+                /** 原文赋 parseInt 结果/布尔开关混用，按 any 保留动态语义 */
+                static isTestShow: any;
+                static testSeason: any;
+                static testAni: any;
+                static isTestMsg: any;
+                static mapEdit: any;
+            }
+        }
+        namespace view {
+            /** sg.map.view.AroundManager（包装变量 xe） */
+            class AroundManager {
+                static initVexData(): void;
+            }
+        }
+        namespace model {
+            /** sg.map.model.MapModel（包装变量 No） */
+            class MapModel {
+                static instance: MapModel;
+                updateTroopItem(): void;
+            }
+        }
+    }
+
+    namespace scene.view {
+        /** sg.scene.view.TestButton（包装变量 C7） */
+        class TestButton {
+            static resetHelpData(): void;
+        }
+        /** sg.scene.view.InputManager（包装变量 xn）——注意原文静态属性拼写 enaled */
+        class InputManager {
+            static instance: InputManager;
+            enaled: boolean;
+        }
+    }
+
+    namespace scene.constant {
+        /** sg.scene.constant.ConfigConstant（包装变量 Ve） */
+        class ConfigConstant {
+            static mapName: string;
+            static mapConfigData: any;
+        }
+    }
+
+    namespace activities.model {
+        /** sg.activities.model.ModelPhone（包装变量 Rh，池化名 t(1725)） */
+        class ModelPhone {
+            static instance: ModelPhone;
+            isOpenView(): boolean;
+        }
+        /** sg.activities.model.ModelFreeBuy（包装变量 Ls，池化名 t(5087)） */
+        class ModelFreeBuy {
+            static instance: ModelFreeBuy;
+            checkData(): void;
+            mData: any[];
+            viewID: any;
+        }
+    }
+
+    namespace view.bigShot {
+        /** sg.view.bigShot.ModelBigShot（包装变量 _a，池化名 t(18234)） */
+        class ModelBigShot {
+            static instance: ModelBigShot;
+            CreateBigShot(): void;
+        }
+    }
+
+    namespace view.com {
+        /** sg.view.com.MouseTips（包装变量 IK） */
+        class MouseTips {
+            static hideMouseTips(): void;
+        }
+    }
+
+    namespace view.init {
+        /** sg.view.init.ViewAlert（包装变量 b6）—— ViewManager 经 .id/.checkBg/.init 使用 */
+        class ViewAlert {
+            id: string;
+            checkBg(t?: any): void;
+            init(): void;
+        }
+        /** sg.view.init.ViewAlert2（包装变量 e8）—— 同 ViewAlert 契约 */
+        class ViewAlert2 {
+            id: string;
+            checkBg(t?: any): void;
+            init(): void;
+        }
+        /** sg.view.init.ViewHintPanel（包装变量 b8） */
+        class ViewHintPanel { }
+        /** sg.view.init.ViewHeroTalk（包装变量 p8） */
+        class ViewHeroTalk { }
+    }
+
+    namespace view.map {
+        /** sg.view.map.ViewCreditResult（包装变量 xtt） */
+        class ViewCreditResult { }
+    }
+
+    namespace view.effect {
+        /** sg.view.effect.EffectUIBase（包装变量 hy） */
+        class EffectUIBase {
+            constructor(alpha?: any, e?: any, n?: any);
+            name: string;
+            width: number;
+            height: number;
+            y: number;
+            init(): void;
+            addChild(node: any): any;
+        }
+    }
+
+    namespace view.menu {
+        /** sg.view.menu.ViewMenuMain_sg4（包装变量 Zd） */
+        class ViewMenuMain_sg4 { init(): void; width: number; height: number; view_top: any; }
+        /** sg.view.menu.ViewMenuMain（包装变量 Jd） */
+        class ViewMenuMain { init(): void; width: number; height: number; view_top: any; }
+    }
+
+    namespace view.more {
+        /** sg.view.more.ViewNotice（包装变量 rx） */
+        class ViewNotice { input(data: any): void; }
+        /** sg.view.more.ViewCarouse（包装变量 tx） */
+        class ViewCarouse {
+            visible: boolean;
+            clerMyTimer(): void;   // 原文拼写如此
+            input(data: any): void;
+        }
+    }
+
+    namespace view.loading {
+        /** sg.view.loading.LoadingPanel_H（包装变量 S$） */
+        class LoadingPanel_H { }
+        /** sg.view.loading.LoadingPanel_V（包装变量 B$） */
+        class LoadingPanel_V { }
+    }
+
+    namespace view.shop {
+        /** sg.view.shop.ViewSkinTips（包装变量 $it） */
+        class ViewSkinTips { }
+    }
+
+    namespace view.wineshop.view {
+        /** sg.view.wineshop.view.WineshopMap（包装变量 pu） */
+        class WineshopMap { }
+    }
+
+    namespace puppet.view {
+        /** sg.puppet.view.ViewMenuScene（包装变量 zd） */
+        class ViewMenuScene { init(): void; }
+        /** sg.puppet.view.PuppetMap（包装变量 Yc） */
+        class PuppetMap { }
+    }
+
+    namespace crossService {
+        /** sg.crossService.CrossServiceFacade（包装变量 $t） */
+        class CrossServiceFacade {
+            static instance: CrossServiceFacade;
+            socket: any;
+        }
+        namespace view {
+            /** sg.crossService.view.CrossServiceMap（包装变量 kc） */
+            class CrossServiceMap {
+                static instance: CrossServiceMap;
+                ui: any;
+            }
+        }
+    }
+
+    namespace home.view {
+        /** sg.home.view.HomeViewMain（包装变量 Mc） */
+        class HomeViewMain { }
+    }
+
+    namespace homeland.view {
+        /** sg.homeland.view.HomeLandViewMain（包装变量 Sc） */
+        class HomeLandViewMain { static instance: HomeLandViewMain; }
+    }
+
+    namespace map.view {
+        /** sg.map.view.MapViewMain（包装变量 Ku） */
+        class MapViewMain { }
+    }
+
+    namespace fight {
+        /** sg.fight.FightMain（包装变量 ci，池化名 t(18007)） */
+        class FightMain {
+            static instance: FightMain;
+            scene: any;
+            client: any;
+        }
+        namespace logic.utils {
+            /** sg.fight.logic.utils.PassiveStrUtils（包装变量 Ui，池化名 t(16572)） */
+            class PassiveStrUtils {
+                static translatePassiveInfo(a: any, b: any, c: any, d: any): any;
+            }
+        }
+    }
+
+    namespace god.model {
+        /** sg.god.model.ModelGodMain（包装变量 bo，池化名 t(13453)） */
+        class ModelGodMain {
+            static instance: ModelGodMain;
+            getModel(id: any): any;
+        }
+        /** sg.god.model.ModelGod（包装变量 Gi，池化名 t(17504)） */
+        class ModelGod {
+            static newGod(cfg: any): any;
+        }
+    }
+
+    namespace puppet.model {
+        /** sg.puppet.model.ModelArmMain（包装变量 vn，池化名 t(17508)） */
+        class ModelArmMain {
+            static instance: ModelArmMain;
+            getArm(id: any): any;
+        }
+    }
+
+    namespace heritage {
+        /** sg.heritage.ModelHeritage（包装变量 Io，池化名 t(10793)） */
+        class ModelHeritage {
+            static instance: ModelHeritage;
+            getHeritageById(id: any): any;
+        }
+    }
+
+    namespace kismet.model {
+        /** sg.kismet.model.ModelKit（包装变量 se，池化名 t(6557)） */
+        class ModelKit {
+            static validate(id: any): boolean;
+        }
+        /** sg.kismet.model.ModelKismet（包装变量 Bo，池化名 t(11187)） */
+        class ModelKismet {
+            static instance: ModelKismet;
+            getKitById(id: any): any;
+        }
+    }
+
+    namespace boundFor {
+        /** sg.boundFor.GotoManager（包装变量 Dt） */
+        class GotoManager {
+            static boundForPanel(name: any): void;
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// ui.* —— IDE 生成 UI 类（批次 A 引用到的）
+// ---------------------------------------------------------------------------
+declare namespace ui {
+    namespace menu {
+        /** ui.menu.scenesTitleUI（包装变量 OB）——ViewScenes 标题条 */
+        class scenesTitleUI {
+            sg_title: any;
+            sg_img: any;
+            sg_txt: any;
+            sg_btn_close: any;
+            sg_btn_tips: any;
+        }
+    }
+    namespace bag {
+        /** ui.bag.bagItemUI（包装变量 v_）——ViewManager.showIcon 飞行道具 */
+        class bagItemUI {
+            setData(id: any, n: any, x: any): void;
+            setRightIcon(b: any): void;
+            pos(x: any, y: any, speed?: any): any;
+            scale(scaleX: any, scaleY?: any, speed?: any): any;
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Laya.<Name> —— code1.js 内以无点类名注册到 Laya 对象上的工具类
+// ---------------------------------------------------------------------------
+declare module Laya {
+    /** 包装变量 Ts —— o(t,"Trace") → Laya.Trace */
+    class Trace {
+        static log(...args: any[]): void;
+    }
+    /** 包装变量 Lt —— o(t,"HtmlLoadClip") → Laya.HtmlLoadClip */
+    class HtmlLoadClip {
+        static isHtmlLoad: boolean;
+        static setLoadValue(v: any, e?: any): void;
+        static setLoadTxt(v: any): void;
+        static delLoad(): void;
+        static isH5Android(): boolean;
+    }
+    /** 包装变量 ks —— o(t,"ToJava") → Laya.ToJava */
+    class ToJava {
+        static init(): void;
+    }
+    /** 包装变量 Cs —— o(t,"ToIOS") → Laya.ToIOS */
+    class ToIOS {
+        static init(): void;
+    }
+    /** 包装变量 Ut —— o(t,"Platform") → Laya.Platform */
+    class Platform {
+        static initMiniGame(): void;
+        static phoneInfoOnCheck: boolean;
+        static uploadActionData(id: any, data: any): void;
+        static getPhoneID(): void;
+        static checkGameStatus(id: any): void;
+        static initSDK(): void;
+        static getServerIdFromOrderId(orderId: any): any;
+        static restart(): void;
+        static uploadUserData(id: any, arr: any): void;
+        static payClose(data: any): void;
+        static recodrd_pay_info: any;   // 原文拼写如此
+    }
+
+    // -----------------------------------------------------------------------
+    // TBMiniGameAdapter —— IDE 自带模板 src/LayaSample.ts（2.x 模板，本批不可改动）
+    // 引用；libs/layaAir.minigame.d.ts 已登记其余 12 个适配器（含 YKMiniAdapter），
+    // 唯缺此类，故在此补登记。仅类型占位，1.8.17 运行时/业务代码不使用。
+    // -----------------------------------------------------------------------
+    class TBMiniGameAdapter { static init(): void; }
+}
+
+/** 事件派发最小面（避免循环依赖到引擎类型） */
+interface EventDispatcherLike {
+    on(type: string, caller: any, listener: any, args?: any): any;
+    off(type: string, caller: any, listener: any): any;
+}

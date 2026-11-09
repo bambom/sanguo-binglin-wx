@@ -70,8 +70,9 @@ require("game.js")
 - ✅ 浏览器基线 PASS（2026-11-09，见下节）
 - ✅ preselection 分包补齐归档（2026-11-09，见「补齐记录」）
 - ✅ 真实微信凭据登录基线 PASS：本人账号经 37 SDK → gateway → 选服 → 主城（2026-11-09，见「真实登录基线」）
+- ✅ 第二次真实登录 + 主城多面板遍历（2026-11-09，见「第二次真实登录会话」）
 - ✅ Laya 1.x 工程骨架建立 + LayaAirIDE 1.8.17 实机打开（editorVersion 已登记）
-- ⏳ CDN 资源按玩法全量镜像（当前 77 文件为启动请求子集）
+- ⏳ CDN 资源按玩法全量镜像（561 文件/40MB：启动 + 主城/世界/四面板子集；商店/国家等未响应入口未覆盖）
 - ⏳ TS 业务源码恢复（code1.js 8.6MB 混淆 UMD → TS；翻译台账已建：3,484 类，`Projects/RecoveryData/sanguo-binglin-wx/translation/`）
 - ⏳ F8 运行页 + 玩法回归
 - ⏳ 发布替换验证、微信开发者工具对照
@@ -107,6 +108,17 @@ require("game.js")
 - 登录链（全部经 /__api/ 透明转发，真实应答）：wx.login 真实 code → 37 SDK `gapigameh5.ohk36.com` 兑换接受 → gateway `user_zone.login` → 欢迎公告 → 选服「交州海市」→ **主城**（玩家「巴蜀战少」，资源条/大地图/任务/国战横幅/底部功能栏俱全）。
 - 画面证据（temp，不上传）：`temp/sanguo-binglin-wx/screenshots/login-01-announcement.png`、`login-02-server-select.png`、`login-03-main-city.png`。
 - 收尾：会话 cleanup 完成（binding/requested/consumed 之外无残留、callback 已删）、桥接 DETACHED。
+
+## 第二次真实登录会话与主城遍历（2026-11-09，r025–r030）
+
+**结论：真实凭据再次登录 PASS，主城→多面板遍历完成，CDN 镜像 438→561 文件（+123）。**
+
+- 链路：桥 r025（快捷方式 scene 1023 放行，主会话后台持有）→ auth r026（prepare/serve/capture r028 一次性 code 交付）→ 选服「交州海市」→ 主城（蜀·成都）。
+- 合成输入通道实证：浏览器内对 canvas 派发 DOM MouseEvent/TouchEvent 无效（weapp-adapter touch 转发抛错）；必须走公共桩 `window.__wxTapStage`（wx.onTouchStart 注册回调 = 微信真实输入路径）。选服页「进入游戏」stage(319.5,801.5)。
+- 遍历（只读，无消耗操作）：主城双视图（建筑/世界大地图）✅、英雄（已招募/未招募/传奇…良才页签）✅、征战（演武场/武馆/探险）✅、仓库（道具/技能/军械/宝物碎片）✅、剧情任务（国家栋梁）✅；**商店、国家、左侧活动列、铁匠铺在 harness 下点击无响应**（如实记录，待 F8/真机对照单列）。
+- 画面证据（temp，不上传）：`temp/sanguo-binglin-wx/screenshots/session2/`（9 张：主城两视图、四面板、无响应证据两张、任务面板）。
+- CDN 镜像增量：+123 文件（ani/atlas/png 为主，40MB 总量），落 `OriginProject/sanguo-binglin-wx/cdn-mirror/`。
+- 收尾：serve 停止 → stop r029（DETACHED 无清理错误）→ cleanup r030（会话元数据删除）。
 
 ## 工作工程结构（LayaAirIDE 1.8.17 实机打开）
 

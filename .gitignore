@@ -1,0 +1,16 @@
+# Laya working project caches and local artifacts stay with this project repo, ignored
+library/
+temp/
+local/
+# bin/ build output ignored at every level; the IDE run-preview entry page is
+# exempted (needs !**/bin/**/ so git still descends into bin directories)
+**/bin/**
+!**/bin/**/
+!layaProject/bin/index.html
+release/
+node_modules/
+*.tsbuildinfo
+publish/
+# LayaAir IDE script upgrade archive (auto-migrated old versions)
+**/.laya/_pub_old/
+.rpt2_cache/

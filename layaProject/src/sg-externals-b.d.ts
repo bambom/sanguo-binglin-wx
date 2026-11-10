@@ -1043,3 +1043,104 @@ declare namespace ui.menu {
     /** ui.menu.top_sg4UI（包装变量 VB）—— ViewMenuTop 构造实参（_sg4.init） */
     class top_sg4UI { }
 }
+
+// ==================== 批次 J 增补 2026-11-10（CrossServiceMap + SceneMain 依赖面） ====================
+// 纯追加：以下均为新增类/新命名空间块，与 sg-externals.d.ts 既有同名命名空间按
+// ambient namespace 合并（TS 2.6 支持 namespace-namespace 合并；无 class-class 合并）。
+// 既有类成员缺口（InputManager.scene/on、MapUtils.getKey/tileToIso、ConfigConstant.
+// ENTITY_CROSS_SERVICE_TILE）不在此改，由调用点 (<any>) cast 承接（批次 D 先例）。
+
+declare namespace sg.scene.view {
+    /** sg.scene.view.MapCamera（包装变量 Ye，@1072389，2 参注册缺口未入册）——
+     * 场景相机（initScene 绑定/zoom/lookAtCrossServiceGrid），SceneMain.createMap 与
+     * CrossServiceMap ctor/initMap 消费；未译，缓译登记 batch-j-report §3 */
+    class MapCamera {
+        static initScene(s: any): void;
+        static zoom(n: number): void;
+        static lookAtCrossServiceGrid(g: any): void;
+    }
+    /** sg.scene.view.EventLayer（包装变量 Qc，@3019746）—— 场景图层容器
+     * （scene/effectLayer/floorLayer.init），SceneMain.createMap 消费 */
+    class EventLayer {
+        scene: any;
+        menu: any;
+        effectLayer: any;
+        floorLayer: any;
+        init(a: any, b: any): void;
+    }
+}
+declare namespace sg.scene.view.ui {
+    /** sg.scene.view.ui.Bubble（包装变量 Ic，@2936258）—— 兵队/城池气泡容器
+     * （initScene/addChild/hitArea/on），CrossServiceMap.initTroopBubble 消费 */
+    class Bubble {
+        initScene(s: any): void;
+        addChild(c: any): any;
+        hitArea: any;
+        visible: boolean;
+        on(...args: any[]): any;
+    }
+}
+declare namespace sg.crossService.model {
+    /** sg.crossService.model.CrossServiceMapModel（包装变量 so，[1691593,1702652)）——
+     * 跨服地图数据模型（troops/floors/country/level/finishData/getMyTroops/
+     * sendBuyEnergy/getTroop/clear），CrossServiceMap ctor(init)/init/destroy 消费；
+     * 未译，缓译登记 batch-j-report §3 */
+    class CrossServiceMapModel {
+        static instance: any;
+        init(h?: any): any;
+        on(...args: any[]): any;
+        off(...args: any[]): any;
+        clear(): void;
+        sendBuyEnergy(t?: any, i?: any): void;
+        getTroop(...args: any[]): any;
+    }
+}
+declare namespace sg.crossService.view {
+    /** sg.crossService.view.FloorContainer（包装变量 xl，[2750748,2753490)）——
+     * 楼层容器（floors/viewObj），CrossServiceMap ctor `new xl` 消费；未译缓译 */
+    class FloorContainer {
+        floors: any;
+        init(): void;
+    }
+    /** sg.crossService.view.CrossServiceTroopClip（包装变量 _d，@3234760）—— 跨服
+     * 兵队剪辑（entity/view/init），CrossServiceMap.addTroop `new _d(this)` 消费；未译缓译 */
+    class CrossServiceTroopClip {
+        constructor(s?: any);
+        entity: any;
+        view: any;
+        init(): void;
+    }
+}
+declare namespace sg.puppet.view {
+    /** sg.puppet.view.ViewMenuCross（包装变量 Vd，@3334362）—— 跨服地图菜单 UI
+     * （menuCross.init/showFinish），CrossServiceMap.initMap `new Vd` 消费；未译缓译 */
+    class ViewMenuCross {
+        menuCross: any;
+        size(w: any, h: any): any;
+        destroy(d?: any): any;
+    }
+}
+declare namespace sg.duplicate {
+    /** sg.duplicate.ModelDuplicateSettings（包装变量 Ws，@1260090）—— 副本设置模型
+     * （settings_changed/highlight），CrossServiceMap.initTroopBubble/destroy 消费；未译缓译 */
+    class ModelDuplicateSettings {
+        static instance: any;
+    }
+}
+declare namespace sg.map.utils {
+    /** sg.map.utils.Vector2D（包装变量 Ie，@930931，2 参注册缺口未入册）—— 2D 向量
+     * （_x/_y），CrossServiceMap.onClickHandler `new Ie(x,y)` 消费；未译缓译 */
+    class Vector2D {
+        constructor(x?: number, y?: number);
+    }
+}
+declare namespace ui.com {
+    /** ui.com.building_tips6UI（包装变量 ik，@3752483）—— 建筑提示 6 号皮肤
+     * （setBuildingTipsIcon3/icon_img），CrossServiceMap.initTroopBubble `new ik` 消费；未译缓译 */
+    class building_tips6UI {
+        setBuildingTipsIcon3(h: any): void;
+        icon_img: any;
+        width: number;
+        height: number;
+    }
+}

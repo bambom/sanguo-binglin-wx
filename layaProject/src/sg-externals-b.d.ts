@@ -861,7 +861,8 @@ declare namespace sg.utils {
 }
 declare namespace sg.fight {
     namespace logic {
-        namespace utils { class FightDuplicateUtils { static getFloorName(...args: any[]): any; } }
+        /** getFloorId 为批次 O 增补 2026-11-10（FilterManager.floorWrap 调用面，原文 wi.getFloorId/wi.getFloorName 成对） */
+        namespace utils { class FightDuplicateUtils { static getFloorId(...args: any[]): any; static getFloorName(...args: any[]): any; } }
     }
     namespace test {
         class TestCopyright { static sendInit(...args: any[]): any; }

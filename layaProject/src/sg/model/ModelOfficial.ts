@@ -21,12 +21,15 @@
  * 引擎：K=laya.maths.MathUtil（sortByKey）、$=laya.wx.mini.MiniAdpter（window.game37_*）。
  *
  * 静态访问器特记：原文 5 处 r(1,s,name,getter,sg.model.ModelBase._$SET_name) 的 setter
- * 实参在运行时为 undefined（ModelBase 未定义任何 _$SET_ 钩子，各 _$SET_ 池串全库仅此一处
- * 引用）。按引擎 getset(1,...) 实现，此时只安装 s._$GET_name，不执行 defineProperty——
- * 即 ModelOfficial.impeach/impeach_fail_time/king_time/riskInvestment/getRiskTime 五个
- * 静态属性在原文运行时从未被安装，类内读取（getImpeachStatus 的 s["impeach"] 等）
- * 恒为 undefined。本译文如实复刻该行为（_$GET_* 赋值 + 无访问器），不引入原文不存在
- * 的静态 getter。
+ * 实参在运行时为 undefined（ModelBase 未定义任何 _$SET_ 钩子）。
+ * 【批次 K 勘误 2026-11-10】批次 D 曾据此判定 getset「只装 _$GET_name 不 defineProperty」——
+ * 与引擎实文相悖：game.js@351203（唯一 getset 定义）s&&!r 分支为
+ * Object.defineProperty(i,n,{get:s,enumerable:!1,configurable:!0})，即 getter-only
+ * 访问器【已安装】、读取即调用、写入被忽略。五个静态在原文运行时均为已安装只读访问器，
+ * getImpeachStatus 的 impeach/king_time/impeach_fail_time 读取会取到 getter 值（弹劾
+ * 状态机），并非恒 undefined。译文已在类尾补 5 处 defineProperty 安装（getter 体不变），
+ * 读点（<any> 读取）无需改动即恢复原语义；批次 D 的 _$GET_* 标记赋值保留（引擎 t=1
+ * 分支确实安装标记）。详见 batch-k-report.md 勘误单列。
  */
 import Handler = laya.utils.Handler;
 import MathUtil = laya.maths.MathUtil;
@@ -993,8 +996,10 @@ export class ModelOfficial extends ModelBase {
 
 /**
  * 原文 5 处 r(1,s,name,getter,sg.model.ModelBase._$SET_name)：setter 实参运行时为
- * undefined，getset(1,...) 仅安装 _$GET_name 钩子、不 defineProperty（见类头特记）。
- * 此处按引擎 getset 的静态分支如实复刻（_$GET_* 赋值），并同样不给类安装命名访问器。
+ * undefined。引擎 getset（game.js@351203 唯一定义）此时安装 _$GET_name 标记【并】
+ * defineProperty getter-only 访问器（s&&!r 分支）——批次 D「不 defineProperty」判定
+ * 有误，批次 K 勘误（见类头特记）。此处保留批次 D 的 _$GET_* 赋值（标记分支如实），
+ * 并补 defineProperty 安装行恢复访问器语义；getter 体与批次 D 一致未动。
  */
 (<any>ModelOfficial)._$GET_impeach = function (): any {
     var i = ModelOfficial.getMyCountryCfg();
@@ -1015,6 +1020,13 @@ export class ModelOfficial extends ModelBase {
 (<any>ModelOfficial)._$GET_getRiskTime = function (): any {
     return ConfigServer.country.warehouse.tax_time;
 };
+/** 批次 K 勘误：引擎 getset s&&!r 分支的 defineProperty 安装（game.js@351203，
+ *  {get:s,enumerable:!1,configurable:!0}），恢复五个静态的只读访问器语义。 */
+Object.defineProperty(ModelOfficial, "impeach", { get: (<any>ModelOfficial)._$GET_impeach, enumerable: !1, configurable: !0 });
+Object.defineProperty(ModelOfficial, "impeach_fail_time", { get: (<any>ModelOfficial)._$GET_impeach_fail_time, enumerable: !1, configurable: !0 });
+Object.defineProperty(ModelOfficial, "king_time", { get: (<any>ModelOfficial)._$GET_king_time, enumerable: !1, configurable: !0 });
+Object.defineProperty(ModelOfficial, "riskInvestment", { get: (<any>ModelOfficial)._$GET_riskInvestment, enumerable: !1, configurable: !0 });
+Object.defineProperty(ModelOfficial, "getRiskTime", { get: (<any>ModelOfficial)._$GET_getRiskTime, enumerable: !1, configurable: !0 });
 
 /**
  * 注册身份等价物：原文 o(s,e(13417),i)（i=Ns=sg.model.ModelBase）。

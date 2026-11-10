@@ -856,3 +856,53 @@ declare namespace sg.view {
         }
     }
 }
+
+// ==================== 批次 E 增补 2026-11-10（VIEW_LOAD 场景族触达面）====================
+// 追加规则同批次 C/D：本节只新增声明；TS 不支持 ambient class-class 合并（TS2300），
+// 既有 class 的静态面新触达一律在调用点 (<any>) cast（batch C「ambient 静态调用点 cast」先例），
+// 实例面新触达用 interface 合并（class+interface 合并合法）。
+// 身份依据（code1.js 注册处实测，工具 temp/sanguo-binglin-wx/analysis/batch_e/
+// finddef + 池串解码复核；详见 translation-ledger.md §14 与 batch-e-report.md）：
+//   ms=sg.utils.SpinePools @1136952（onAdded OnStart）、Te=sg.model.ModelPf @952050
+//   （pf_login/pf_logout 登录/登出通道，池化名）。
+// 调用点 cast 面（ambient 静态缺口，不在本节登记）：
+//   os=sg.utils.MessagePack @1117348 静态 create（ViewLoad.initAssetsAndServerCfg）、
+//   Rh=sg.activities.model.ModelPhone 静态 isBindingFBorGG（ViewLoad/ViewLoadsg4 click_logout）、
+//   Jt=sg.fight.client.cfg.ConfigFightView @542488 静态 enterZone（event_socket_opened）、
+//   Br=sg.model.ModelPlayer 静态 userData/userListData（ViewLoad.initData iOS 回填）。
+// ViewBinding(n8)/ViewPrivacy(N8)/ViewRegistFast(R8)/ViewRealName(D8)/ViewAgeNotice(i8)
+// 仅作 showView(["name",Class]) 类值引用，译文经 (<any>sg) 全局注册路径调用期解析，
+// 不在本节登记（ConfigClass.ts VIEW_* 同款先例）。
+declare namespace sg.utils {
+    /** sg.utils.SpinePools（包装变量 ms）—— Spine 动画池（OnStart 经 instance: any） */
+    class SpinePools {
+        static instance: any;
+    }
+}
+declare namespace sg.model {
+    /** sg.model.ModelPf（包装变量 Te，池化注册名）—— 渠道平台登录/登出 */
+    class ModelPf {
+        static pf_login(...args: any[]): any;
+        static pf_logout(...args: any[]): any;
+    }
+    /** 与既有 class ModelPlayer / 批次 C·D interface 合并（VIEW_LOAD 登录链实例触达面） */
+    interface ModelPlayer {
+        on(...args: any[]): any;
+        off(...args: any[]): any;
+        event(...args: any[]): any;
+        updateAll(...args: any[]): any;
+        getUID(...args: any[]): any;
+        getName(...args: any[]): any;
+        getPWD(...args: any[]): any;
+        getPhone(...args: any[]): any;
+        getPhoneCode(...args: any[]): any;
+        getCurrZone(...args: any[]): any;
+        setAutoLogin(...args: any[]): any;
+        setPhone(...args: any[]): any;
+        setPhoneCode(...args: any[]): any;
+        isTempPlayer: any;
+        loginName: any;
+        loginPwd: any;
+        mPlayerList: any;
+    }
+}

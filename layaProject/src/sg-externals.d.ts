@@ -303,7 +303,9 @@ declare namespace sg {
             // ---- 批次 D 增补 2026-11-10（ModelProp PVE 礼包字典）----
             static pve_gift_dict: any;
         }
-        /** sg.model.ModelBuiding（包装变量 zo，池化名 t(2217)） */
+        /** sg.model.ModelBuiding（包装变量 zo，池化名 t(2217)）——批次 F 已译真实现
+         *  （src/sg/model/ModelBuiding.ts，运行时 Laya.class 注册与本声明同对象；
+         *  本声明保留供既有调用方全局路径类型，FontManager 先例） */
         class ModelBuiding {
             static material_type: any[];
             // ---- 批次 D 增补 2026-11-10（ModelInside/ModelUser 建筑静态面；注册名拼写 Buiding 原文如此）----
@@ -315,8 +317,13 @@ declare namespace sg {
             static getMaterialEnough(...args: any[]): any;
             static isBaggageBubble(...args: any[]): any;
             static isBaggageBubble1(...args: any[]): any;
+            // ---- 批次 F 增补 2026-11-10（译文内 sg.model.ModelBuiding.* 全局路径自引面）----
+            static getArmyCurrGradeByType(...args: any[]): any;
+            static getArmyMakeCfgByGrade(...args: any[]): any;
+            static army_type: any;
         }
-        /** sg.model.ModelItem（包装变量 yr，池化名 t(6604)） */
+        /** sg.model.ModelItem（包装变量 yr，池化名 t(6604)）——批次 F 已译真实现
+         *  （src/sg/model/ModelItem.ts；本声明保留供既有调用方全局路径类型） */
         class ModelItem {
             static checkItemGotoBag(id: any): boolean;
             // ---- 批次 B 增补 2026-11-10（AssetsManager 货币小图标）----
@@ -354,6 +361,9 @@ declare namespace sg {
             setData(...args: any[]): any;
             getPrepare(...args: any[]): any;
             mModelPrepare: any;
+            // ---- 批次 F 增补 2026-11-10（ModelBuiding 兵种名/等级面）----
+            static getMaxLv(...args: any[]): any;
+            static army_type_name: any;
         }
         /** sg.model.ModelHeroPure（包装变量 gr，池化名 t(17278)） */
         class ModelHeroPure {
@@ -379,6 +389,9 @@ declare namespace sg {
             static getModel(...args: any[]): any;
             static getIndexById(...args: any[]): any;
             static setBeastPoint(...args: any[]): any;
+            // ---- 批次 F 增补 2026-11-10（ModelItem.isCanOpen 背包容量）----
+            static getBagCurNum(...args: any[]): any;
+            static getBagTotalNum(...args: any[]): any;
         }
         /** sg.model.ModelRune（包装变量 Pr，池化名 t(14945)） */
         class ModelRune {
@@ -394,6 +407,8 @@ declare namespace sg {
             name: any;
             index: any;
             getImgName(...args: any[]): any;
+            // ---- 批次 F 增补 2026-11-10（ModelItem.getItemName 星石实例名）----
+            getName(...args: any[]): any;
         }
     }
 
@@ -656,6 +671,9 @@ declare namespace sg {
             static startBattle(...args: any[]): any;
             static startCountryBattle(...args: any[]): any;
             static startLogBattle(...args: any[]): any;
+            // ---- 批次 F 增补 2026-11-10（ModelXYZ2 图腾/神策击杀推送）----
+            static receiveCityDestroy(...args: any[]): any;
+            static receiveShenceKill(...args: any[]): any;
             exit(...args: any[]): any;
         }
         namespace logic.utils {
@@ -674,6 +692,9 @@ declare namespace sg {
             // ---- 批次 D 增补 2026-11-10（ModelInside/ModelUser 神灵开关与刷新）----
             active: any;
             refreshData(...args: any[]): any;
+            // ---- 批次 F 增补 2026-11-10（ModelItem.isCanOpen 神格容量）----
+            godCurNum: any;
+            godLimitNum: any;
         }
         /** sg.god.model.ModelGod（包装变量 Gi，池化名 t(17504)） */
         class ModelGod {

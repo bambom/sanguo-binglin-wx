@@ -116,6 +116,8 @@ declare namespace sg {
             static getIndexById(...args: any[]): any;
             static getName(...args: any[]): any;
             static getTypeNameByType(...args: any[]): any;
+            // ---- 批次 F 增补 2026-11-10（ModelBuiding.isBusy/checkMyStatus 装备气泡）----
+            static getIcon(...args: any[]): any;
         }
         // ---- ModelAlert / ModelManager / QueueManager / ConfigServer 引用面（批次外模型）----
         class ModelClimb {
@@ -159,6 +161,8 @@ declare namespace sg {
             static models: any;
             // ---- 批次 D 增补 2026-11-10（MapModel 英灵索引）----
             static getIndexById(...args: any[]): any;
+            // ---- 批次 F 增补 2026-11-10（ModelItem.getItemName 英灵名）----
+            static getName(...args: any[]): any;
         }
         class ModelTask {
             static checkWorkWill(): any;
@@ -228,6 +232,9 @@ declare namespace sg {
             static isOepn(...args: any[]): any;
             static hasCanInstallScheme(...args: any[]): any;
             static checkSchemeHeroObj(...args: any[]): any;
+            // ---- 批次 F 增补 2026-11-10（ModelBuiding.introduceEvery 60172）----
+            static isStartOpenMaxLv: any;
+            static levelupMaxLv: any;
         }
         class ModelScience {
             static instance: any;
@@ -351,6 +358,9 @@ declare namespace sg {
                     static mix(...args: any[]): any;
                     // ---- 批次 D 增补 2026-11-10（ModelGwent 对象比较）----
                     static compareObj(...args: any[]): any;
+                    // ---- 批次 F 增补 2026-11-10（ModelBuiding 属性变换/点数转百分比）----
+                    static getRankValue(...args: any[]): any;
+                    static pointToPer(...args: any[]): any;
                 }
             }
         }
@@ -522,6 +532,12 @@ declare namespace ui {
             alpha: any;
             pos(x?: any, y?: any, speed?: any): any;
         }
+        // ---- 批次 F 增补 2026-11-10（ModelBuiding.checkMyStatus 气泡 UI 类值；
+        //      jC/KC/$C/JC = ui.com.building_tips0/1/2/3UI，仅类值引用无成员触达）----
+        class building_tips0UI { }
+        class building_tips1UI { }
+        class building_tips2UI { }
+        class building_tips3UI { }
     }
 }
 
@@ -620,6 +636,15 @@ declare namespace sg.model {
         static func_gtaskcount: any;
         static haveRight(...args: any[]): any;
         static rightTypeAvailable(...args: any[]): any;
+        // ---- 批次 F 增补 2026-11-10（ModelBuiding 练兵/产出/建造 CD/行囊静态面）----
+        static func_traincost(...args: any[]): any;
+        static func_addarmylimit(...args: any[]): any;
+        static func_homegold(...args: any[]): any;
+        static func_homefood(...args: any[]): any;
+        static func_homewood(...args: any[]): any;
+        static func_homeiron(...args: any[]): any;
+        static func_buildtime(...args: any[]): any;
+        static func_baggagefree(...args: any[]): any;
     }
     class ModelShop {
         constructor(...args: any[]);
@@ -637,7 +662,11 @@ declare namespace sg.model {
     }
     class ModelDungeon { static instance: any; }
     class ModelAntiAddiction { static instance: any; }
-    class ModelArmyUpgrade { static updateArmyUpgradeData(...args: any[]): any; }
+    class ModelArmyUpgrade {
+        static updateArmyUpgradeData(...args: any[]): any;
+        // ---- 批次 F 增补 2026-11-10（ModelBuiding.checkMyStatus 兵营 bubblet）----
+        static getModel(...args: any[]): any;
+    }
     class ModelArmyScience { static updateHarmmer(...args: any[]): any; }
     class ModelCabinet { static instance: any; }
     class ModelFightLog_H { static instance: any; }
@@ -646,6 +675,8 @@ declare namespace sg.model {
         static redPoint: any;
         static shogun_name: any;
     }
+    /** 批次 F 已译真实现（src/sg/model/ModelXYZ2.ts）；本声明保留供批次 D 既有调用方
+     *  （ModelCountryPvp ctor new）全局路径类型，FontManager 先例。 */
     class ModelXYZ2 { constructor(...args: any[]); }
     class ModelSchemeEgg { static instance: any; }
     class ModelDoomTower { static getDoomLv(...args: any[]): any; }
@@ -656,6 +687,8 @@ declare namespace sg.model {
         static getTodayModel(...args: any[]): any;
     }
     class ModelFestivalAsk { static instance: any; }
+    /** 批次 F 已译真实现（src/sg/model/UserDataProxy.ts，F8 死点类）；本声明保留供
+     *  ModelUser ctor `new sg.model.UserDataProxy()` 全局路径类型，FontManager 先例。 */
     class UserDataProxy { constructor(...args: any[]); }
     /** 与批次 A class ModelPlayer 再合并：ModelUser 登录/分区/账号写入面 */
     interface ModelPlayer {
@@ -841,7 +874,11 @@ declare namespace sg.view {
     namespace levelupGift { class LevelupGiftModelManager { static instance: any; } }
     namespace arena { class ViewArenaMain { } }
     namespace country { class ViewAlienTroopInfo { } }
-    namespace countryPvp { class ViewCountryEmperorTips { } }
+    namespace countryPvp {
+        class ViewCountryEmperorTips { }
+        // ---- 批次 F 增补 2026-11-10（ModelXYZ2._showPushKill）----
+        class ShenceKillPush { static create(...args: any[]): any; }
+    }
     namespace init { class ViewAgeNotice { } }
     namespace effect {
         class ArmyUpgrade { static getEffect(...args: any[]): any; }
@@ -854,6 +891,11 @@ declare namespace sg.view {
             static titleName: any;
             static tips: any;
         }
+        // ---- 批次 F 增补 2026-11-10（ModelBuiding.upOneLv 建筑升级特效四件套）----
+        class BuildingUpgrade { static getEffect(...args: any[]): any; }
+        class BuildingUpgrade1 { static getEffect(...args: any[]): any; }
+        class BuildingUpgrade2 { static getEffect(...args: any[]): any; }
+        class BuildingUpgrade3 { static getEffect(...args: any[]): any; }
     }
 }
 
@@ -906,3 +948,41 @@ declare namespace sg.model {
         mPlayerList: any;
     }
 }
+
+// ==================== 批次 F 增补 2026-11-10（ModelManager.init 构造链触达面）====================
+// 追加规则同批次 C/D：本节只新增声明（新类/新命名空间），既有 class 的静态面新触达
+// 以「批次 F 增补」标注插入上文对应类体（批次 D 先例）。
+// 身份依据（code1.js 注册处实测 + 池串解码，工具 temp/sanguo-binglin-wx/analysis/
+// batch_f/find_regs*.js + spanof_f*.js；详见 translation-ledger.md §15）：
+//   fr=sg.model.ModelPowerLevel、Oa=sg.view.ScienceH.ModelScienceH、
+//   Xs=sg.homeland.model.ModelHomelandBuild、si=sg.fight.client.utils.FightLoad、
+//   eo=sg.bigDevil.model.ModelBigDevil、Pt=sg.boundFor.FuncChecker。
+declare namespace sg {
+    namespace model {
+        /** sg.model.ModelPowerLevel（包装变量 fr）—— 战力科技加成（func_sum_type） */
+        class ModelPowerLevel { static instance: any; }
+    }
+    namespace bigDevil {
+        namespace model {
+            /** sg.bigDevil.model.ModelBigDevil（包装变量 eo）—— 魔鬼国 country 判定 */
+            class ModelBigDevil { static devilCountry: any; }
+        }
+    }
+}
+declare namespace sg.view {
+    namespace ScienceH {
+        /** sg.view.ScienceH.ModelScienceH（包装变量 Oa）—— 科技研究院升级上限 */
+        class ModelScienceH { static instance: any; }
+    }
+}
+declare namespace sg.homeland {
+    namespace model {
+        // 既有 ModelHomeLand（批次 D）之外的本批新触达
+        /** sg.homeland.model.ModelHomelandBuild（包装变量 Xs）—— 家园建筑动画资源 */
+        class ModelHomelandBuild { static getAnimationId(...args: any[]): any; }
+    }
+}
+// sg.fight.client.utils.FightLoad（getPersonResId）批次 D 已在上文声明，本批未新增触达。
+declare namespace sg.boundFor {
+    /** sg.boundFor.FuncChecker（包装变量 Pt，2 参注册）—— 跳转条件开关（getItemSource） */
+    class FuncChecker { static check(t: any): any; }}

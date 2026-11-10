@@ -325,7 +325,12 @@ export class ViewLoad extends viewLoadUI {
                 this.showProgressBar(this.mLastProgress),
                 ConfigApp.isFirstInstall ? Platform.uploadActionData(10002, [this.mLastProgress]) : Platform.uploadActionData(1, [this.mLastProgress]);
         } else {
-            t = this.mProgress - this.mLastProgress >= 1e-4 && (t = Math.max(1e-4, Math.min(.3, .1 * t)));
+            // [批次 E 勘误 2026-11-10] 原文（oracle/batch-e/ViewLoad.js）：
+            //   (t=this.mProgress-this.mLastProgress)>=1e-4&&(t=Math.max(1e-4,Math.min(.3,.1*t)))
+            // 括号内赋值先求差值、内层 .1*t 用差值；此前译文丢了赋值括号，求值序变为
+            // 布尔 && 且内层引用入口 NaN —— onFrameLoop else 分支每帧产出 NaN，进度条
+            // NaN% 且退出条件 e>=1 永假，F8 装载循环永不退出（第 13 次推进后冻结根因）。
+            (t = this.mProgress - this.mLastProgress) >= 1e-4 && (t = Math.max(1e-4, Math.min(.3, .1 * t)));
             var i: any = NaN;
             this.mProgress < 1 ? (i = this.mProgress / ((new Date).getTime() - this.mStartTime) * 1e3, i = Math.max(.05, Math.min(1, i))) : (i = 2, t += .02),
                 t *= i,

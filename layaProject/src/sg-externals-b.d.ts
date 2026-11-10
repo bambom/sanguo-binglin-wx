@@ -994,3 +994,52 @@ declare namespace sg.homeland {
 declare namespace sg.boundFor {
     /** sg.boundFor.FuncChecker（包装变量 Pt，2 参注册）—— 跳转条件开关（getItemSource） */
     class FuncChecker { static check(t: any): any; }}
+
+// ===================== 批次 H 增补 2026-11-10（ViewMenuMain 菜单层闭包面）=====================
+// 入批真类：ViewMenuMain(Jd)/ViewMenuMain_sg4(Zd)（ViewManager.init 直 new，本批已译，
+// 见 sg/view/menu/）。以下为两者 init()/回调链触达的未译类（批次 B 缓译清单维持），
+// 仅登记最小构造签名，成员访问经实例字段 any 面。
+declare namespace sg.view.menu {
+    /** sg.view.menu.HomeBtnsBox（包装变量 i_）—— ViewMenuMain.init 首个 new */
+    class HomeBtnsBox { }
+    /** sg.view.menu.ViewMenuUser（包装变量 cJ）—— 用户区 */
+    class ViewMenuUser { }
+    /** sg.view.menu.ViewMenuLeft（包装变量 lJ）—— 左列表 */
+    class ViewMenuLeft { }
+    /** sg.view.menu.ViewMenuBottom（包装变量 rJ）—— 底部功能栏 */
+    class ViewMenuBottom { }
+    /** sg.view.menu.ViewMenuBottom_sg4（包装变量 aJ）—— sg4 底部栏 */
+    class ViewMenuBottom_sg4 { }
+    /** sg.view.menu.ViewTroopList（包装变量 dJ）—— 编队列表 */
+    class ViewTroopList { }
+    /** sg.view.menu.ViewHomeLand_Build（包装变量 hJ）—— 家园建造面板（homeLandBuildShow 惰性） */
+    class ViewHomeLand_Build { }
+    /** sg.view.menu.ViewHomeLand_Change（包装变量 oJ）—— 家园编辑面板（homeLandBuildShow 惰性） */
+    class ViewHomeLand_Change { }
+    /** sg.view.menu.BoxOrder（包装变量 q_）—— sg4 订单条 */
+    class BoxOrder { }
+    /** sg.view.menu.RightButtonBox（包装变量 K_）—— sg4 右侧按钮组 */
+    class RightButtonBox { }
+    /** sg.view.menu.ViewOrders（包装变量 nit）—— _showBuffs showView 对 */
+    class ViewOrders { }
+}
+declare namespace sg.view.chat {
+    /** sg.view.chat.ViewChatMain2（包装变量 gK）—— 横屏聊天浮层（ViewMenuMain.init isLandscape 分支） */
+    class ViewChatMain2 { }
+}
+declare namespace sg.view.qqdt {
+    /** sg.view.qqdt.LanzuanBtn（包装变量 Mit）—— h5_qqdt/h5_qqdt3 专属（wx_37 不触达） */
+    class LanzuanBtn { }
+}
+declare namespace sg.activities.view {
+    /** sg.activities.view.ActIconList（包装变量 td）—— 活动图标列（_sg4.init） */
+    class ActIconList { }
+}
+declare namespace sg.homeland.view {
+    /** sg.homeland.view.BuildMenuAdd（包装变量 Fl）—— 家园加建菜单（ViewMenuMain.getButton） */
+    class BuildMenuAdd { static instance: any; }
+}
+declare namespace ui.menu {
+    /** ui.menu.top_sg4UI（包装变量 VB）—— ViewMenuTop 构造实参（_sg4.init） */
+    class top_sg4UI { }
+}

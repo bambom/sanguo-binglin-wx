@@ -47,9 +47,10 @@ declare namespace sg {
             getFullYear(): any;
             getMonth(): any;
         }
-        /** sg.utils.MessagePack（NetSocket 用） */
+        /** sg.utils.MessagePack（NetSocket 用；encode 为批次 G 增补——NetPackage.getSendData 二进制分支） */
         class MessagePack {
             static decode(data: any): any;
+            static encode(data: any): any;
         }
         /** sg.utils.FastSha256 */
         class FastSha256 {
@@ -303,13 +304,20 @@ declare namespace sg {
     }
 
     namespace net {
-        /** sg.net.NetMethodCfg（NetSocket 组包） */
+        /** sg.net.NetMethodCfg（267 个 HTTP/WS 方法名常量表，空构造器无方法）。
+         *  批次 G 已译真实现 src/sg/net/NetMethodCfg.ts（ambient 保留供全局注册路径）。
+         *  批次 G 勘误 2026-11-10：原文无 createPkg（曾误绑，勘误见 batch-g-report §2）。 */
         class NetMethodCfg {
-            static createPkg(...args: any[]): any;
         }
         /** sg.net.NetVo（NetHttp 请求值对象） */
         class NetVo {
             constructor(t?: any, i?: any, e?: any, s?: any);
+        }
+        /** sg.net.NetPackage（"net_vo" 池化请求包 VO，NetSocket createPkg 供给源）。
+         *  批次 G 已译真实现 src/sg/net/NetPackage.ts（ambient 保留供全局注册路径）。 */
+        class NetPackage {
+            static createPkg(i?: number): any;
+            static pid: number;
         }
     }
 

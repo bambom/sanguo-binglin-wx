@@ -73,9 +73,10 @@ require("game.js")
 - ✅ 第二次真实登录 + 主城多面板遍历（2026-11-09，见「第二次真实登录会话」）
 - ✅ Laya 1.x 工程骨架建立 + LayaAirIDE 1.8.17 实机打开（editorVersion 已登记）
 - ⏳ CDN 资源按玩法全量镜像（561 文件/40MB：启动 + 主城/世界/四面板子集；商店/国家等未响应入口未覆盖）
-- ⏳ TS 业务源码恢复（code1.js 8.6MB 混淆 UMD → TS；台账已建 3,487 类（含 addenda）；**批次 A 11 + B 54 + C 2 + D 30 + E 17 + F 4 = 118 类已交付**（F8 装载链 118/118 模块求值零失败），全部 tsc 2.6.2 全工程零错误、oracle 逐字节快照、token 区间零重叠；报告见 `Projects/RecoveryData/sanguo-binglin-wx/translation/batch-{a..f}-report.md`）
+- ⏳ TS 业务源码恢复（code1.js 8.6MB 混淆 UMD → TS；台账已建 3,489 类（含 addenda）；**批次 A 11 + B 54 + C 2 + D 30 + E 17 + F 4 + G 2 = 120 类已交付**（F8 装载链 120/120 模块求值零失败），全部 tsc 2.6.2 全工程零错误、oracle 逐字节快照、token 区间零重叠；报告见 `Projects/RecoveryData/sanguo-binglin-wx/translation/batch-{a..g}-report.md`）
 - ✅ F8 运行页装载链 PASS 至已翻译闭包边界（2026-11-10：原包 1.8.15beta 引擎全链 → loadSubpackage 拦截 → 65/65 译文模块求值零失败、sg=49/ui=11 注册、new LayaSample() 执行、Laya.init 画布建成；终止点 = Laya.Platform.initMiniGame，精确命中预测。验证页 `Tools/Projects/sanguo-binglin-wx/runtime/index-f8.html` + serve.py `/f8/` 路由；下一阻塞即批次 C1）
 - ✅ 批次 F（UserDataProxy 链 4 类，2026-11-10）：`sg.model.UserDataProxy`(Ue，F8 死点本体)、`ModelBuiding`(zo)、`ModelItem`(yr)、`ModelXYZ2`(Hr)；oracle 4/4 逐字节保真、token 区间零重叠；tsc 2.6.2 全工程 0 错误（独立复跑）。F8 重探：118/118 模块零失败、注册 sg=93/ui=19，**UserDataProxy/ModelUser 构造链已通过**，新终止点 = `NetSocket.registerHandler` 读 `undefined.createPkg`（`new ModelXYZ2 → new ModelCountryPvp` 触发）→ 批次 G 目标
+- ✅ 批次 G（NetPackage 双跳勘误 2 类，2026-11-10）：F8 死点根因 = 批次 B 对 `var Ee=(IIFE_A(),IIFE_B())` 双跳声明的误绑（Ee≠NetMethodCfg 而是 **NetPackage**，createPkg 真宿主）。交付 `sg.net.NetPackage`（VO 类，140 行）+ `sg.net.NetMethodCfg`（267 常量逐一比对）+ NetSocket.ts 最小勘误（2 处 createPkg 调用点，批次 D 勘误先例）；oracle 2/2 逐字节保真、tsc 0 错误（独立复跑）。F8 重探：120/120 零失败、sg=95，**registerHandler/createPkg 链全通**，新终止点 = `sg.view.menu.ViewMenuMain is not a constructor`（ViewManager.init:139，LayaSample.init 触发）→ 批次 H 目标（批次 B 缓译的菜单层宽闭包）
 - ✅ F8/基线页分辨率修复（2026-11-10）：weapp-adapter 把 `window.innerWidth/innerHeight` 覆盖为 375×667 并改写主画布实例 `getBoundingClientRect`，导致任意大于 375×667 的窗格画布钉死左上。公共桩（`__wxRealViewport` + 原生 rect 通道，三项回归 PASS）+ 两运行页（早捕获原生访问器 + 页面级 CSS 规则）修复；实测 1280×720 窗格 contain-fit 居中 404×720、比例 0.561≈750/1334、`__wxTapStage(375,667)`→`[187.5,333.5]` 输入映射逐位吻合
 - ⏳ 玩法回归（待批次 C 纵深：C1 Laya.Platform → C2 19 模型 → C3 菜单层 → C4 ConfigClass → C5 VIEW_LOAD）
 - ⏳ 发布替换验证、微信开发者工具对照

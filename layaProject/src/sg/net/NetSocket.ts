@@ -11,7 +11,11 @@
  * 别名：lt=laya.net.Socket；s=Laya；m=laya.utils.Browser；P=laya.utils.Handler；
  * Ts=Trace、vs=Tools、be=TestUtils、Rt=ConfigApp、Gt=ConfigServer、tn=ViewManager（模块直引）；
  * C7=sg.scene.view.TestButton、os=sg.utils.MessagePack、W7=sg.test.testpakcage.TestPackage、
- * Ee=sg.net.NetMethodCfg、js=sg.guide.model.ModelGuide、$t=sg.crossService.CrossServiceFacade、
+ * Ee=sg.net.NetPackage【批次 G 勘误 2026-11-10：原文 var Ee=(IIFE_A(),IIFE_B()) 双跳，
+ * IIFE_A 注册 sg.net.NetMethodCfg（267 常量，返回值丢弃），Ee 实取 IIFE_B=
+ * sg.net.NetPackage（createPkg 工厂）；本文件原误绑 Ee=sg.net.NetMethodCfg，send 与
+ * registerHandler 两处 createPkg 调用点已改 NetPackage 直引，见 batch-g-report】、
+ * js=sg.guide.model.ModelGuide、$t=sg.crossService.CrossServiceFacade、
  * ho=sg.crossService.model.CrossServiceUserModel、c4=sg.view.hero.ViewAwakenHero（批次外，环境声明）。
  * 原文方法体内以 i 指“本类”（i.isSpecailClose、i.pingTimer 等）→ TS 类直引。
  */
@@ -21,6 +25,7 @@ import { Trace } from "../laya/Trace";
 import { Tools } from "../utils/Tools";
 import { TestUtils } from "../map/utils/TestUtils";
 import { ViewManager } from "../manager/ViewManager";
+import { NetPackage } from "./NetPackage";  // 批次 G 勘误：原文 Ee=sg.net.NetPackage（双跳 wrapper）
 
 export class NetSocket extends laya.events.EventDispatcher {
 
@@ -203,7 +208,7 @@ export class NetSocket extends laya.events.EventDispatcher {
     public send(t: string, e: any, s?: any, n?: any): any {
         NetSocket.sMethodName = t, NetSocket.sSendData = e,
             sg.test.testpakcage.TestPackage.addPackage(t, e, !0, this);
-        var h = sg.net.NetMethodCfg.createPkg(0);
+        var h = NetPackage.createPkg(0);  // 批次 G 勘误：原文 Ee.createPkg(0)，Ee=sg.net.NetPackage
         return h.sendMethod = t, h.sendData = e, h.otherData = n,
             h.sendTime = (new Date).getTime(), h.receiveHandler = s,
             sg.guide.model.ModelGuide.forceGuide() && (h.guideData = sg.guide.model.ModelGuide.getGuideData(t)),
@@ -307,7 +312,7 @@ export class NetSocket extends laya.events.EventDispatcher {
     public registerHandler(t: string, i: any, e?: string): boolean {
         if (this.hasRegisterHandler(t, i)) return !1;
         this.notificationMap[t] = this.notificationMap[t] || [];
-        var s = this.notificationMap[t], n = sg.net.NetMethodCfg.createPkg();
+        var s = this.notificationMap[t], n = NetPackage.createPkg();  // 批次 G 勘误：原文 Ee.createPkg()
         return n.sendMethod = t, n.receiveMethod = t, n.receiveHandler = i, s.push(n),
             e && !i.once && (this.groups[e] || (this.groups[e] = []), this.groups[e].push([t, i])),
             !0;

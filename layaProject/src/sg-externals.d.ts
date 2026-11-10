@@ -421,9 +421,17 @@ declare namespace sg {
                 static focusInSprite(...args: any[]): any;
             }
             /** sg.guide.view.ViewGuide（包装变量 sp） */
-            class ViewGuide { static instance: ViewGuide; }
+            class ViewGuide {
+                static instance: ViewGuide;
+                // ---- 批次 Q 增补 2026-11-10（ModelGuide.waitASecond arrow 复位）----
+                arrow: any;
+            }
         }
         namespace model {
+            /** sg.guide.model.GuideHelper（包装变量 ji @821667）—— GuideChecker.test 换旗 */
+            class GuideHelper {
+                static changeCountryFlag(...args: any[]): any;
+            }
             /** sg.guide.model.ModelGuide（包装变量 js，池化名 t(18180)） */
             class ModelGuide {
                 static forceGuide(): any;
@@ -486,6 +494,8 @@ declare namespace sg {
         class InputManager {
             static instance: InputManager;
             enaled: boolean;
+            // ---- 批次 Q 增补 2026-11-10（ModelGuide.doGuide/guideOver canDrag）----
+            canDrag: any;
         }
     }
 
@@ -613,6 +623,11 @@ declare namespace sg {
         class WineshopMap { }
     }
 
+    namespace view.tower {
+        /** sg.view.tower.ModelRevivedTower（包装变量 Wa，池化名 t(395)）—— 批次 Q 增补（GuideChecker gwent 分支 needGuide） */
+        class ModelRevivedTower { static instance: any; }
+    }
+
     namespace puppet.view {
         /** sg.puppet.view.ViewMenuScene（包装变量 zd） */
         class ViewMenuScene { init(): void; }
@@ -707,7 +722,12 @@ declare namespace sg {
         class ModelArmMain {
             static instance: ModelArmMain;
             getArm(id: any): any;
+            // ---- 批次 Q 增补 2026-11-10（GuideChecker.getConditionGuideID puppet_guide）----
+            getAllWeapon(...args: any[]): any;
+            getAllHeart(...args: any[]): any;
         }
+        /** sg.puppet.model.ModelPuppetReputation（包装变量 sa，池化名 t(13418)）—— 批次 Q 增补（GuideChecker puppet_guide finishIndents） */
+        class ModelPuppetReputation { static instance: any; }
         // ---- 批次 D 增补 2026-11-10（ModelGame 国库事件面）----
         class ModelCountryStoreroom {
             static instance: any;
@@ -737,6 +757,8 @@ declare namespace sg {
         class ModelKismet {
             static instance: ModelKismet;
             getKitById(id: any): any;
+            // ---- 批次 Q 增补 2026-11-10（GuideChecker kismet_guide 分支）----
+            canGuide: any;
         }
     }
 

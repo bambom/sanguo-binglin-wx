@@ -106,6 +106,10 @@ declare namespace sg {
     }
 
     namespace model {
+        /** sg.model.ModelOffice37（包装变量 cr，池化名 t(6702)）—— 批次 Q 增补（GuideChecker office_guide 37 线官署等级） */
+        class ModelOffice37 {
+            static getOffice37LvByClassId(...args: any[]): any;
+        }
         /** sg.model.ModelEquip（包装变量 nr）—— canBuyEquipItem 领取判定 + 装备表 */
         class ModelEquip {
             static canBuyEquipItem(id: any, e?: any): boolean;
@@ -771,7 +775,16 @@ declare namespace sg.achievement {
     namespace view { class AchievementHint { constructor(...args: any[]); } }
 }
 declare namespace sg.puppet {
-    class PuppetUtils { static building_store: any; }
+    class PuppetUtils {
+        static building_store: any;
+        // ---- 批次 Q 增补 2026-11-10（GuideChecker puppet_guide 六建筑等级面）----
+        static building_weapon: any;
+        static building_heart: any;
+        static building_iron: any;
+        static building_wood: any;
+        static building_leather: any;
+        static building_gear: any;
+    }
 }
 declare namespace sg.task {
     namespace model {

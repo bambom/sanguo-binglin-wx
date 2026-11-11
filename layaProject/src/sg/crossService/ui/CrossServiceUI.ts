@@ -14,10 +14,8 @@
  * 批次 V 入批原因：sg.crossService.ui 首簇第 2 类（initTroop itemRender=SP、_refreshMarks
  * new DP/DP.getName 同批互引；前邻 kg=CrossServiceMainUI.createChildren 经 Bt.regComponent
  * 注册 sg.duplicate.view.DuplicateBottomBar 与本族 LeaderTips 子组件）。
- * extends 决策：原文基类 kg=ui.duplicate.CrossServiceMainUI（IDE 皮肤类，未译，归后续
- * 批次；其自身基类 e_=sg.view.com.ItemBase 批次 A ✓）。本批暂 extends 已译真祖先
- * ItemBase，原型链缺 IDE 皮肤层；ui.duplicate.CrossServiceMainUI 落地后本文件 extends
- * 需重指向——见 batch-v-report.md「extends 决策」。
+ * extends 决策：原文基类 kg=ui.duplicate.CrossServiceMainUI（IDE 皮肤类，批次 X ✓ 落地；
+ * 其自身基类 e_=sg.view.com.ItemBase 批次 A ✓）。波次 1 整合已重指向真基类（模块直引）。
  * 依赖（模块直引）：vs=Tools、us=SaveLocal、le=EffectManager、ae=ColorManager、re=
  * AssetsManager、Gt=ConfigServer、Rt=ConfigApp、Ht=ConfigClass、tn=ViewManager（A/B ✓）、
  * $t=CrossServiceFacade（I ✓）、kc=CrossServiceMap（J ✓，instance.created/springMinScale
@@ -39,7 +37,7 @@
 import Handler = laya.utils.Handler;
 import Tween = laya.utils.Tween;
 import Ease = laya.utils.Ease;
-import { ItemBase } from "../../view/com/ItemBase";
+import { CrossServiceMainUI } from "../../ui/duplicate/CrossServiceMainUI";
 import { Tools } from "../../utils/Tools";
 import { SaveLocal } from "../../utils/SaveLocal";
 import { TimeHelper } from "../../utils/TimeHelper";
@@ -55,7 +53,7 @@ import { CrossServiceMap } from "../view/CrossServiceMap";
 import { CrossServiceTroopItem } from "./CrossServiceTroopItem";
 import { MarkBase } from "./MarkBase";
 
-export class CrossServiceUI extends ItemBase {
+export class CrossServiceUI extends CrossServiceMainUI {
 
     public markCids: any = null;
     public newCids: any = null;

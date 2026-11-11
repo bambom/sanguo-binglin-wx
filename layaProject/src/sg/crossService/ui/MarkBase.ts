@@ -10,10 +10,8 @@
  *
  * 批次 V 入批原因：sg.crossService.ui 首簇第 5 类（CrossServiceUI._refreshMarks new DP +
  * DP.getName 硬依赖，同批互引）。
- * extends 决策：原文基类 Ag=ui.duplicate.markBaseUI（IDE 皮肤类，未译，归后续批次；其
- * 自身基类 e_=sg.view.com.ItemBase 批次 A ✓）。本批暂 extends 已译真祖先 ItemBase，
- * 原型链缺 IDE 皮肤层；ui.duplicate.markBaseUI 落地后本文件 extends 需重指向——见
- * batch-v-report.md「extends 决策」。
+ * extends 决策：原文基类 Ag=ui.duplicate.markBaseUI（IDE 皮肤类，批次 X ✓ 落地；其自身
+ * 基类 e_=sg.view.com.ItemBase 批次 A ✓）。波次 1 整合已重指向真基类（模块直引）。
  * 依赖：vs=Tools、le=EffectManager（B ✓ 模块直引）；P=laya.utils.Handler、Ct=
  * laya.utils.Tween、k=laya.utils.Ease、s=Laya（引擎）。
  * 批次外（ambient 全局路径，延迟调用）：ho=sg.crossService.model.CrossServiceUserModel
@@ -27,11 +25,11 @@
 import Handler = laya.utils.Handler;
 import Tween = laya.utils.Tween;
 import Ease = laya.utils.Ease;
-import { ItemBase } from "../../view/com/ItemBase";
+import { markBaseUI } from "../../ui/duplicate/markBaseUI";
 import { Tools } from "../../utils/Tools";
 import { EffectManager } from "../../manager/EffectManager";
 
-export class MarkBase extends ItemBase {
+export class MarkBase extends markBaseUI {
 
     public index: number = 0;
     public ani: any = null;

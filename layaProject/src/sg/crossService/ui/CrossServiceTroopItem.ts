@@ -12,11 +12,11 @@
  *
  * 批次 V 入批原因：sg.crossService.ui 首簇第 1 类（CrossServiceUI.initTroop
  * list.itemRender=SP 硬依赖，同批互引）。
- * extends 决策：原文基类 Cg=ui.duplicate.CrossServiceTroopItemUI（IDE 皮肤类，未译，归
- * 后续批次；其自身基类 e_=sg.view.com.ItemBase 批次 A ✓）。本批暂 extends 已译真祖先
- * ItemBase，原型链缺 IDE 皮肤层；x/width 的 superGet(Cg)/superSet(Cg) 与 dataSource 的
- * prototype._$get_dataSource 仍按原文以全局注册路径传 ui.duplicate.CrossServiceTroopItemUI；
- * 该皮肤类落地后本文件 extends 需重指向——见 batch-v-report.md「extends 决策」。
+ * extends 决策：原文基类 Cg=ui.duplicate.CrossServiceTroopItemUI（IDE 皮肤类，批次 X ✓
+ * 落地；其自身基类 e_=sg.view.com.ItemBase 批次 A ✓）。波次 1 整合已重指向真基类
+ * （模块直引，mini-require 递归解析）；x/width 的 superGet(Cg)/superSet(Cg) 与 dataSource 的
+ * prototype._$get_dataSource 仍按原文以全局注册路径传 ui.duplicate.CrossServiceTroopItemUI
+ * （Laya.class 注册后即真类）。
  * 依赖：vs=Tools、ps=TimeHelper、le=EffectManager、Gt=ConfigServer、Ht=ConfigClass、
  * tn=ViewManager、$t=CrossServiceFacade（I ✓）、kc=CrossServiceMap（J ✓）（模块直引）；
  * P=laya.utils.Handler、s=Laya（引擎）。
@@ -31,7 +31,7 @@
  * txtOfficial）类型层声明，无初始化器。
  */
 import Handler = laya.utils.Handler;
-import { ItemBase } from "../../view/com/ItemBase";
+import { CrossServiceTroopItemUI } from "../../ui/duplicate/CrossServiceTroopItemUI";
 import { Tools } from "../../utils/Tools";
 import { TimeHelper } from "../../utils/TimeHelper";
 import { EffectManager } from "../../manager/EffectManager";
@@ -41,7 +41,7 @@ import { ViewManager } from "../../manager/ViewManager";
 import { CrossServiceFacade } from "../CrossServiceFacade";
 import { CrossServiceMap } from "../view/CrossServiceMap";
 
-export class CrossServiceTroopItem extends ItemBase {
+export class CrossServiceTroopItem extends CrossServiceTroopItemUI {
 
     public troopEntity: any = null;
     public states: any = {};

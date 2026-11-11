@@ -10,19 +10,18 @@
  *
  * 批次 V 入批原因：sg.crossService.ui 首簇第 3 类（LeaderTips.list.itemRender 硬依赖，
  * 同批互引 UP）。
- * extends 决策：原文基类 Mg=ui.duplicate.leaderBaseUI（IDE 皮肤类，未译，归后续批次；
- * 其自身基类 e_=sg.view.com.ItemBase 批次 A ✓）。本批暂 extends 已译真祖先 ItemBase，
- * 原型链缺 IDE 皮肤层（皮肤字段 + createChildren 的 regComponent/loadUI）；ui.duplicate.leaderBaseUI
- * 落地后本文件 extends 需重指向（1 行）——见 batch-v-report.md「extends 决策」。
+ * extends 决策：原文基类 Mg=ui.duplicate.leaderBaseUI（IDE 皮肤类，批次 X ✓ 落地；其
+ * 自身基类 e_=sg.view.com.ItemBase 批次 A ✓）。波次 1 整合已重指向真基类（模块直引；
+ * 皮肤字段 + createChildren 的 regComponent/loadUI 随真基类恢复）。
  * 依赖：vs=Tools（B ✓ 模块直引）；批次外（ambient 全局路径）：ro=sg.duplicate.ModelDuplicate
  * （instance.showUserInfo）、ui.duplicate.leaderBaseUI（prototype._$get_dataSource）。
  * 皮肤字段（leaderBaseUI：txt_name/txt_score/icon_power）为类型层声明（无初始化器，
  * viewAlertUI 批次 B「构造期 createView 契约」先例；实际由 loadUI/createView 创建）。
  */
-import { ItemBase } from "../../view/com/ItemBase";
+import { leaderBaseUI } from "../../ui/duplicate/leaderBaseUI";
 import { Tools } from "../../utils/Tools";
 
-export class LeaderBase extends ItemBase {
+export class LeaderBase extends leaderBaseUI {
 
     public txt_name: any;
     public txt_score: any;

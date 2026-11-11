@@ -12,10 +12,8 @@
  * 批次 V 入批原因：sg.crossService.ui 首簇第 4 类（LeaderBase 同批互引 list.itemRender=UP；
  * 前邻 ui.duplicate.CrossServiceMainUI.createChildren 经 Bt.regComponent("sg.crossService.
  * ui.LeaderTips",PP) 注册为本皮肤子组件）。
- * extends 决策：原文基类 Sg=ui.duplicate.leaderUI（IDE 皮肤类，未译，归后续批次；其
- * 自身基类 e_=sg.view.com.ItemBase 批次 A ✓）。本批暂 extends 已译真祖先 ItemBase，
- * 原型链缺 IDE 皮肤层；ui.duplicate.leaderUI 落地后本文件 extends 需重指向——见
- * batch-v-report.md「extends 决策」。
+ * extends 决策：原文基类 Sg=ui.duplicate.leaderUI（IDE 皮肤类，批次 X ✓ 落地；其自身
+ * 基类 e_=sg.view.com.ItemBase 批次 A ✓）。波次 1 整合已重指向真基类（模块直引）。
  * 依赖：vs=Tools、us=SaveLocal、Gt=ConfigServer（B ✓ 模块直引）、UP=LeaderBase（本批）；
  * P=laya.utils.Handler、Ct=laya.utils.Tween、k=laya.utils.Ease（引擎）。
  * 批次外（ambient 全局路径，延迟调用）：ho=sg.crossService.model.CrossServiceUserModel
@@ -30,13 +28,13 @@
 import Handler = laya.utils.Handler;
 import Tween = laya.utils.Tween;
 import Ease = laya.utils.Ease;
-import { ItemBase } from "../../view/com/ItemBase";
+import { leaderUI } from "../../ui/duplicate/leaderUI";
 import { Tools } from "../../utils/Tools";
 import { SaveLocal } from "../../utils/SaveLocal";
 import { ConfigServer } from "../../cfg/ConfigServer";
 import { LeaderBase } from "./LeaderBase";
 
-export class LeaderTips extends ItemBase {
+export class LeaderTips extends leaderUI {
 
     public myLeader: number = 0;
     public maxShowNum: number = 5;

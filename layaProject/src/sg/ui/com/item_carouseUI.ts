@@ -17,8 +17,7 @@ export class item_carouseUI extends ItemBase {
     }
 
     public createChildren(): void {
-        (<any>laya.ui.Component.prototype).createChildren.call(this);
-        this.loadUI("com/item_carouse");
+        (<any>laya.ui.Component.prototype).createChildren.call(this), this.loadUI("com/item_carouse");
     }
 }
 
